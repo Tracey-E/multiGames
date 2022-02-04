@@ -1,0 +1,131 @@
+/**header styles */
+.header {
+  padding: 1rem;
+  height: 18rem;
+  background: linear-gradient(rgb(240, 50, 50), white, rgb(41, 41, 248));
+  align-items: center;
+}
+.name {
+  font-family: "Press Start 2P", cursive;
+
+  margin-top: 0.5rem;
+  font-size: 10rem;
+  align-self: center;
+}
+
+.chk {
+
+  width: 5rem;
+  margin-top: 0rem;
+  font-weight: bolder;
+}
+.hidden {
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(1px);
+}
+.a-bounce {
+  --animdur: 2s;
+  --animn: bounce;
+  --animdir: alternate-reverse;
+  --animic: infinite;
+}
+
+[data-animation] {
+  animation: var(--animn, none) var(--animdur, 0s) var(--animtf, linear)
+    var(--animdel, 0s) var(--animic, infinite) var(--animdir, alternate)
+    var(--animfm, none) var(--animps, running);
+}
+[data-animation-pause]:checked ~ [data-animation] {
+  --animps: paused;
+}
+[data-animation-pause]:checked + label::before {
+  background-color: cornflowerblue;
+}
+
+@keyframes bounce {
+  from {
+    margin-top: 4.5%;
+  }
+  0% {
+    color: rgb(240, 50, 50);
+    opacity: 100%;
+  }
+  50% {
+    color: rgb(10, 10, 10);
+    opacity: 90%;
+  }
+  100% {
+    color: rgb(41, 41, 248);
+    opacity: 80%;
+  }
+}
+
+/** nav menu styles*/
+.nav {
+  margin-top: 5rem;
+  position: absolute;
+  width: 20rem;
+  height: 100%;
+  left: -20rem;
+  transition: 0.5s;
+  background-color: rgb(218, 229, 243);
+}
+
+.nav.active {
+  left: 0;
+  z-index: 1;
+}
+.nav ul a {
+  list-style: none;
+  font-size: 1.7rem;
+
+  color: rgb(6, 7, 29);
+  font-weight: 900;
+
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.nav .toggle {
+  position: absolute;
+  top: 0.5rem;
+  left: 20rem;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.toggle span {
+  width: 3rem;
+  height: 0.5rem;
+  display: block;
+  margin-top: 0.5rem;
+  background-color: rgb(15, 15, 15);
+  color: black;
+}
+/** searchbar styles*/
+.searchbar {
+  align-self: center;
+  height: 6rem;
+}
+.searchbar input {
+  height: 3rem;
+  width: 35rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: text;
+  border: 3px solid black;
+}
+
+.searchbar button {
+  height: 3.5rem;
+  border: 3px 3px solid black;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  font-weight: bolder;
+}
+.searchbar button:hover {
+  background-color: black;
+  color: antiquewhite;
+}

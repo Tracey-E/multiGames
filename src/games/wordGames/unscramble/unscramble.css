@@ -1,0 +1,101 @@
+/** unscramble styles*/
+.unscramble{
+  margin-bottom: 6rem;
+}
+h2 {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+p {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+/** styles for scrambled word showing*/
+#scrambledLetters {
+  letter-spacing: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  align-self: center;
+  text-align: center;
+}
+/**styles for user input box*/
+#letsNeed {
+  display: inline-block;
+
+  text-align: center;
+  background-color: rgb(197, 230, 230);
+  height: 5rem;
+  color: black;
+  letter-spacing: 1rem;
+  border: 2px solid black;
+  font-size: 2rem;
+  width: 25rem;
+  user-select: none;
+  font-weight: bold;
+}
+/**styles for user score to be shown*/
+#score {
+  font-size: 1.5rem;
+}
+/** styles for hint to be shown*/
+#hintReveal{
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+/** button styles for this page only*/
+#level,
+#newWord,
+#try,
+#newGame ,
+#hint
+{
+  width: 6rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: rgb(192, 207, 219);
+  color: black;
+}
+
+#newWord:hover,
+#level:hover,
+#try:hover,
+#newGame:hover,
+#hint:hover
+ {
+  background-color: black;
+  color: antiquewhite;
+}
+#newWord {
+  margin-left: 6rem;
+  margin-bottom: 1rem;
+  width: 9rem;
+}
+#level {
+  width: 10rem;
+  margin-top: 5rem;
+  background-color: rgb(235, 231, 178);
+  font-weight: bolder;
+}
+#newGame {
+  margin-right: 5rem;
+}
+#try{
+  margin-left: 1rem;
+}
+#hint{
+  margin-top:1rem;
+}
+#newGame{
+  width:6rem;
+ 
+}
+/**styles to make clear where user is tabbed */
+input:focus-visible,
+button:focus-visible,
+ul:focus-visible,
+li:focus-visible {
+  
+ outline: 5px solid rgb(58, 27, 236);
+}
