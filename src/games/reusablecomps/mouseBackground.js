@@ -13,11 +13,11 @@ function BackgroundBox(props) {
   // const texture1 = useLoader(TextureLoader, "textures/aw1.jpeg");
   const { texture1 } = useTexture({ texture1: "/textures/aw1.jpeg" });
   const [ref,api] =  useBox(() => ({
-    mass: 0,
-    type: "static",
+    mass: -0,
+    isDynamic:true,
     onCollide: (e) => {
-      api.position.set(0, 5, 0);
-      api.velocity.set(0, 5, 0);
+      api.position.set(0, 0, 0);
+     
     },
   }));
   

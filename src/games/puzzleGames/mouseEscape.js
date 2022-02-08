@@ -23,7 +23,7 @@ function CanvasAndScene() {
     <>
       <div className="MouseEscape">
         <Canvas ref={MouseEscape} dispose={null} name="MouseEscape">
-          <Physics >
+          <Physics defaultContactMaterial={{ restitution: 5, friction: 100 }}>
             <Scene />
             <MouseBackground />
           </Physics>
