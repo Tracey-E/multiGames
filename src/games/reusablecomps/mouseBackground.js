@@ -1,39 +1,45 @@
-import React, { useRef, Suspense } from "react";
-import { useFrame, useLoader, Canvas } from "@react-three/fiber";
-import { TextureLoader } from "three/src/loaders/TextureLoader.js";
+import React from "react";
+import { useBox} from "@react-three/cannon";
 import { useTexture } from "@react-three/drei";
+import { useControls } from "leva";
 
-/**background box needs solid sides to form surrounding */
-function MousePlane() {
-  // const texture1 = useLoader(TextureLoader, "textures/aw1.jpeg");
-  const { texture1 } = useTexture({ texture1: "/textures/aw1.jpeg" });
 
-  const mesh = useRef();
-
+/**const mesh = ref
   useFrame(() => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.0;
-  });
+  }); */
+/**background box needs solid sides to form surrounding */
+function BackgroundBox(props) {
+  // const texture1 = useLoader(TextureLoader, "textures/aw1.jpeg");
+  const { texture1 } = useTexture({ texture1: "/textures/aw1.jpeg" });
+  const [ref,api] =  useBox(() => ({
+    mass: 0,
+    type: "static",
+    onCollide: (e) => {
+      api.position.set(0, 5, 0);
+      api.velocity.set(0, 5, 0);
+    },
+  }));
+  
+  const { x, y, z } = useControls({ x: 11.3, y: 6, z: -1.1 });
+
   return (
     <>
-      <ambientLight intensity={0.5} />
-      <spotLight position={[25, 10, 10]} angle={0.15} penumbra={8} />
-      <pointLight position={[-10, -10, -10]} />
+      <mesh ref={ref} name="BackgroundBox" dispose={null} position={[0,0,-2]}>
+      
+        <boxGeometry args={[x, y, z]} attach="geometry"  />
 
-      <mesh ref={mesh}>
-        <boxGeometry args={[8, 7, -1]} />
-        <boxBufferGeometry attach="geometry" />
         <meshBasicMaterial attach="material" map={texture1} />
+        
       </mesh>
     </>
   );
 }
 
-export function MouseBackground() {
+export default function MouseBackground() {
   return (
-    <Canvas>
-      <Suspense fallback={null}>
-        <MousePlane />
-      </Suspense>
-    </Canvas>
+    <>
+      <BackgroundBox />
+    </>
   );
 }

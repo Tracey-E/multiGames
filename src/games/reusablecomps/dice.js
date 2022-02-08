@@ -1,5 +1,5 @@
-import React, { useRef, Suspense } from "react";
-import { useFrame, useLoader, Canvas } from "@react-three/fiber";
+import React, { useRef } from "react";
+import { useFrame, useLoader ,Canvas} from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
 
 function Box() {
@@ -38,10 +38,10 @@ function Box() {
 
 export function Dices() {
   return (
+    <>
     <Canvas>
-      <Suspense fallback={null}>
-        <Box />
-      </Suspense>
-    </Canvas>
+      <Box />
+      </Canvas>
+    </>
   );
 }

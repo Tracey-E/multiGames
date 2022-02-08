@@ -1,22 +1,11 @@
 
 /**page*/
-.mouseEscape {
+.MouseEscape {
   box-sizing: border-box;
   height: 100vh;
   width:100%;
-}
-/**background box*/
-.mousebackground {
- height :100%;
+  touch-action: pan-y;
 }
 
-/** blocks to fill background box*/
-.mousebox {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-
-}
 
 

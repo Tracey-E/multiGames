@@ -1,20 +1,48 @@
-import * as THREE from "three";
-import React, { Suspense } from "react";
-import { useThree, Canvas } from "@react-three/fiber";
-import { Physics } from "@react-three/cannon";
+import React, { useRef } from "react";
+import { useThree } from "@react-three/fiber";
 import { Box } from "@react-three/drei";
+import { useBox } from "@react-three/cannon";
 import { useGesture } from "@use-gesture/react";
 import { useSpring, a } from "@react-spring/three";
 
+/**position left/right up/down distance*/
+const l = 0;
+const u = 0;
+const d = 0;
+
+/**size height,width,depth*/
+const h = 1;
+const w = 1;
+const t = 1;
+
 /**blocks for sliders all need to be solid state so cant pass through each other */
+
 function Block(props) {
+  const { spring, bind } = useDraggableObject();
+  const ref = useRef();
+const box = useRef()
+  return (
+    <a.mesh {...spring} {...bind()} dispose={null} ref={ref} >
+      <Box  ref={box} position={[l,u,d]} {...props} >
+        <boxGeometry args={[h,w,t]}/>
+        <meshPhysicalMaterial
+          attach="material"
+          color={Math.random() * 0xffffff}
+          roughness={9}
+        />
+      </Box>
+    </a.mesh>
+  );
+}
+
+/**used to drag objects */
+function useDraggableObject() {
   const { size, viewport } = useThree();
   const aspect = size.width / viewport.width;
   const [spring, set] = useSpring(() => ({
     scale: [1, 1, 1],
-    position: [0, 0, 0],
-
-    config: { friction: 80 },
+    position: [l, u, d],
+    friction: 10,
   }));
   const bind = useGesture({
     onDrag: ({ offset: [x, y] }) =>
@@ -24,36 +52,62 @@ function Block(props) {
       }),
   });
 
-  return (
-    <a.mesh {...spring} {...bind()} castShadow>
-      <Box args={[2, 1, 1]}>
-        <meshNormalMaterial color={Math.random() * 0xffffff} />
-      </Box>
-    </a.mesh>
-  );
+  return { spring, bind };
 }
 /**to get multiple blocks in  the game */
-function BlocksMix() {
+function BlocksMix(props) {
+  const Block1 = Block;
+  const Block2 = Block;
+  const Block3 = Block;
+  const ref = useRef();
+  const [box] = useBox(() => ({
+    mass: 0,
+    type: "static",
+    position:[l,u,d],
+    ...props,
+  }));
+
   return (
-    <mesh camera={{ position: [0, 0, 0], near: 0.1, far: 1000 }}>
-      <ambientLight intensity={0.3} />
-      <pointLight intensity={0.8} position={[5, 0, 5]} />
-      <Physics>
-        <group>
-          <Block position={[2, -1, 0]} />
-          <Block position={[-1, 0, 0]} />
-          <Block position={[1, 0, 0]} />
-        </group>
-      </Physics>
+    <mesh ref={ref} castShadow>
+      <group ref={box} {...props}  dispose={null}>
+        <Block1   name="1" position={[l - 2, u, d]} >
+          <boxGeometry args={[h+1, w + 1, t]} />
+          <meshLambertMaterial />
+        </Block1>
+
+        <Block2 name="2" position={[l + 1, u, d]}>
+          {" "}
+          <boxGeometry args={[h+1, w + 1, t]}  />
+          <meshLambertMaterial />
+        </Block2>
+
+        <Block3 name="3" position={[l, u + 1, d]}>
+          {" "}
+          <boxGeometry  args={[h, w - 1, t]} />
+          <meshLambertMaterial />
+        </Block3>
+      </group>
     </mesh>
   );
 }
-export function BlocksMixes() {
+
+const Lighting = () => {
   return (
-    <Canvas>
-      <Suspense fallback={null}>
-        <BlocksMix />
-      </Suspense>
-    </Canvas>
+    <mesh
+      camera={{ position: [l, u, d], near: 0.5, far: 1000 }}
+      name="lighting"
+    >
+      <spotLight position={[25, 10, 10]} angle={0.15} penumbra={8} castShadow />
+      <ambientLight intensity={0.5} />
+      <pointLight intensity={0.5} position={[5, 0, 5]} />
+    </mesh>
+  );
+};
+export default function BlocksMixes() {
+  return (
+    <>
+      <Lighting />
+      <BlocksMix />
+    </>
   );
 }

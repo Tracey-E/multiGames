@@ -7,7 +7,7 @@ export function PuzzlePage() {
       <div className="puzzles" id="PuzzlePage">
         <h1>Puzz</h1>
         <ul tabIndex={-0} type="menu">
-          <Link to="./MouseEscape">
+          <Link to="/MouseEscape">
             {""}
             <li>Mouse Escape</li>
           </Link>
