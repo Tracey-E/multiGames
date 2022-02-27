@@ -14,7 +14,7 @@ function BackgroundBox(props) {
   const { texture1 } = useTexture({ texture1: "/textures/aw1.jpeg" });
   const [ref,api] =  useBox(() => ({
     mass: -0,
-    isDynamic:true,
+    type: "Static",
     onCollide: (e) => {
       api.position.set(0, 0, 0);
      

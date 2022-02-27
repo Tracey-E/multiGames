@@ -1,0 +1,96 @@
+/** main body*/
+.wordsearch {
+  display: block;
+
+  margin-top: 7em;
+  height: auto;
+  width: 100%;
+  column-count: 2;
+  
+}
+h1 {
+  justify-self: center;
+  text-align: center;
+  margin-top: 1em;
+  column-span: all;
+}
+/** start button*/
+#start {
+  display: block;
+  justify-self: center;
+  align-self: center;
+  column-span: all;
+
+  width: 6rem;
+  height: 4rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: rgb(192, 207, 219);
+  color: black;
+}
+#start:hover {
+  background-color: red;
+  color: aliceblue;
+}
+
+/**game area */
+
+/**words to find*/
+.listWords {
+  display: block;
+ column-span: all;
+ flex-direction: row;
+ 
+}
+
+#wordList {
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction:row;
+  list-style: none;
+  column-span: all;
+  justify-content: space-evenly;
+  margin-left: 1em;
+  margin-right: 1em;
+}
+#wList{
+  flex-wrap: wrap;
+  flex-direction: row;
+ 
+  column-span: all;
+  font-size: 1.2em;
+  font-weight: bold;
+ padding:0.5em
+}
+
+
+/** word grid*/
+:root{
+  --grid-row:1;
+  --grid-column:1;
+
+}
+.searchGrid {
+  display: grid;
+  
+  grid-template-columns: repeat(var(--grid-column), 2rem);
+  grid-template-rows: repeat(var(--grid-row),2rem);
+  border: 2px solid black;
+  width: 90vw;
+  height: 70vh;
+  column-span:all;
+  margin-top: 1em;
+  margin-bottom: 5em;
+ 
+  column-gap: 0.1em;
+ 
+}
+.searchGrid button:first-child{
+  grid-column: 1;
+}
+.cell-count{
+ outline: 1px solid grey;
+ font-weight: bolder;
+ font-size: 1.5em;
+}
+

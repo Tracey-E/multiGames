@@ -1,7 +1,6 @@
-import React from "react";
-import { Fragment } from "react";
+import React, { Fragment } from "react";
+import { Dices } from "../../games/reusablecomps/fiberParts/dice";
 
-import {Dices} from "../../games/reusablecomps/dice";
 
 export function Home() {
   return (

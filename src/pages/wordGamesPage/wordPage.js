@@ -11,6 +11,10 @@ export function WordPage() {
             {""}
             <li>Unscramble </li>
           </Link>
+          <Link to="/Wordsearch">
+            {""}
+            <li>WordSearch </li>
+          </Link>
         </ul>
       </div>
     </Fragment>

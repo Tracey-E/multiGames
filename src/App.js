@@ -9,7 +9,8 @@ import "./pages/home/home.css";
 import "./pages/puzzleGamePage/puzzleGamesPage.css";
 import "./games/wordGames/unscramble/unscramble.css";
 import "./pages/wordGamesPage/wordPage.css";
-import "./games/puzzleGames/mouseEscape.css"
+import "./games/puzzleGames/mouseEscape.css";
+import "./games/wordGames/wordsearch/wordsearch.css";
 
 /**basic page imports */
 import { Header } from "./pages/pageBasics/header/header.js";
@@ -22,8 +23,9 @@ import { PuzzlePage } from "./pages/puzzleGamePage/puzzleGamesPage";
 import { WordPage } from "./pages/wordGamesPage/wordPage";
 
 /**game imports */
-import { Unscramble } from "./games/wordGames/unscramble/unscramble";
-import  MouseEscape  from "./games/puzzleGames/mouseEscape.js";
+import { Unscramble } from "./games/wordGames/unscramble/Unscramble";
+import { Wordsearch } from "./games/wordGames/wordsearch/Wordsearch";
+import MouseEscape from "./games/puzzleGames/EscapeBox.js";
 
 export default function App() {
   return (
@@ -31,7 +33,7 @@ export default function App() {
       <Header />
       <Nav />
       <SearchBar />
-     
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Home" exact element={<Home />} />
@@ -41,8 +43,9 @@ export default function App() {
 
           <Route path="/WordPage" exact element={<WordPage />} />
           <Route path="/Unscramble" exact element={<Unscramble />} />
+          <Route path="/Wordsearch" exact element={<Wordsearch />} />
         </Routes>
-     
+      </Suspense>
     </div>
   );
 }

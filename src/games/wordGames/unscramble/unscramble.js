@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 
-import RandomWord from "../../reusablecomps/words";
+import RandomWord from "../../reusablecomps/wordGameParts/words";
 
 export class Unscramble extends React.Component {
   constructor(props) {
@@ -47,6 +47,7 @@ export class Unscramble extends React.Component {
   /**get a new word =>CheckWordLength */
   Scrambled = () => {
     this.newWord = RandomWord();
+   
     const hints = document.getElementById("hintReveal");
 
     if (hints.hasChildNodes()) {

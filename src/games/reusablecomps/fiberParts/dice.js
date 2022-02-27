@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useFrame, useLoader ,Canvas} from "@react-three/fiber";
 import { TextureLoader } from "three/src/loaders/TextureLoader.js";
-
+import { Physics, Debug } from "@react-three/cannon";
 function Box() {
   const texture1 = useLoader(TextureLoader, "textures/d1.jpg");
   const texture2 = useLoader(TextureLoader, "textures/d2.jpeg");
@@ -12,9 +12,9 @@ function Box() {
 
   const mesh = useRef();
 
-  useFrame(() => {
+  /**useFrame(() => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.04;
-  });
+  });*/
 
   return (
     <>
@@ -22,16 +22,9 @@ function Box() {
       <spotLight position={[25, 10, 10]} angle={0.15} penumbra={8} />
       <pointLight position={[-10, -10, -10]} />
 
-      <mesh ref={mesh}>
-        <boxGeometry args={[20, 15, 15]} />
-        <boxBufferGeometry attach="geometry" />
-        <meshStandardMaterial attachArray="material" map={texture1} />
-        <meshStandardMaterial attachArray="material" map={texture2} />
-        <meshStandardMaterial attachArray="material" map={texture3} />
-        <meshStandardMaterial attachArray="material" map={texture4} />
-        <meshStandardMaterial attachArray="material" map={texture5} />
-        <meshStandardMaterial attachArray="material" map={texture6} />
-      </mesh>
+       <mesh ref={mesh}>
+        <boxGeometry args={[2, 1, 1]} />
+    </mesh>
     </>
   );
 }
@@ -40,8 +33,22 @@ export function Dices() {
   return (
     <>
     <Canvas>
+      <Physics>
+    <Debug color="black" scale={1.1}>
+    
       <Box />
+      </Debug>
+      </Physics>
       </Canvas>
     </>
   );
 }
+
+/**     <boxBufferGeometry attach="geometry" />
+        <meshStandardMaterial attachArray="material" map={texture1} />
+        <meshStandardMaterial attachArray="material" map={texture2} />
+        <meshStandardMaterial attachArray="material" map={texture3} />
+        <meshStandardMaterial attachArray="material" map={texture4} />
+        <meshStandardMaterial attachArray="material" map={texture5} />
+        <meshStandardMaterial attachArray="material" map={texture6} />
+      */
