@@ -7,8 +7,7 @@ export class Wordsearch extends React.Component {
     super(props);
     this.state = {
       listOfWords: [],
-      newList: [],
-      key: 0,
+      newList: [],     
       count: 0,
       rHeight: 0,
       gWidth: 0,
@@ -29,16 +28,20 @@ export class Wordsearch extends React.Component {
       word = RandomWord();
     }
 
-    if (this.state.listOfWords.length < 30) {
-      this.setState({ key: this.state.key + 1 });
+    if (this.state.listOfWords.length < 30 && this.state.listOfWords.indexOf(word)=== -1) {
+    
 
       this.state.listOfWords.push(word);
 
       this.listWords();
+    
+
     } else if (this.state.listOfWords.length === 30) {
       this.wordLength();
       this.makeGrid();
       return this.setState({ listOfWords: this.state.listOfWords.sort() });
+    }else {
+    this.listWords()
     }
   };
 
@@ -104,43 +107,46 @@ export class Wordsearch extends React.Component {
 
     return { row: x, column: y };
   };
+  /**get length  */
 
-  /**check if word fits  */
+ /** check if word fits  */
 
   wordFit = () => {
-    this.possStartCell();
+   
     /**get longest word in list */
     var wordToFit = this.newList.sort(function (a, b) {
       return b.length - a.length;
-    });
+    })
     /**length of word to fit */
-    var i = wordToFit[0].length;
-
-    /**get startcell poss c if enough cells to fit word */
+    console.log(wordToFit.length)
+    while (wordToFit.length>0){
+      this.possStartCell();
+      var i = wordToFit[0].length;
+     var  word = wordToFit.shift()
+       /**get startcell poss see if enough cells to fit word */
     var colSum = this.startCellPosition(this.startCell).column + i;
     var rowSum = this.startCellPosition(this.startCell).row + i;
     if (colSum < this.gWidth) {
-      this.rowLetterPlace();
+      this.rowLetterPlace(word);
     } else if (rowSum < this.rHeight) {
-      this.colLetterPlace();
+      this.colLetterPlace(word);
     }
+
+  }
+  console.log(wordToFit.length)
   };
 
   /** place in grid row */
-  rowLetterPlace = () => {
-    var wordToFit = this.newList.sort(function (a, b) {
-      return b.length - a.length;
-    });
-
-    //turn this into one call for all letters
-    if (wordToFit.length > 0) {
+  rowLetterPlace = (word) => {
+   
+    if (word.length > 0) {
       var x = this.startCell;
-      for (let i = 0; i < wordToFit[0].length; i++) {
-        var word = wordToFit[0].split("");
+      for (let i = 0; i < word.length; i++) {
+        var wordSplit = word.split("");
         console.log(word);
 
-        if (word.length > 0) {
-          while (typeof (i = word.shift()) !== "undefined") {
+        if (wordSplit.length > 0) {
+          while (typeof (i = wordSplit.shift()) !== "undefined") {
             var firstCell = document.getElementById(x);
             firstCell.innerText = i;
             x = x + 1;
@@ -148,21 +154,19 @@ export class Wordsearch extends React.Component {
         }
       }
     }
+
   };
   /**to place words in columns */
-  colLetterPlace = () => {
-    var wordToFit = this.newList.sort(function (a, b) {
-      return b.length - a.length;
-    });
+  colLetterPlace = (word) => {
+    
 
-    if (wordToFit.length > 0) {
+    if (word.length > 0) {
       var x = this.startCell;
-      for (let i = 0; i < wordToFit[0].length; i++) {
-        var word = wordToFit[0].split("");
-        console.log(word);
+      for (let i = 0; i < word.length; i++) {
+        var wordSplit = word.split("");
 
-        if (word.length > 0) {
-          while (typeof (i = word.shift()) !== "undefined") {
+        if (wordSplit.length > 0) {
+          while (typeof (i = wordSplit.shift()) !== "undefined") {
             var firstCell = document.getElementById(x);
             firstCell.innerText = i;
             x = x + this.gWidth;
