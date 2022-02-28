@@ -12,9 +12,9 @@ function Box() {
 
   const mesh = useRef();
 
-  /**useFrame(() => {
+ useFrame(() => {
     mesh.current.rotation.x = mesh.current.rotation.y += 0.04;
-  });*/
+  });
 
   return (
     <>
@@ -24,6 +24,13 @@ function Box() {
 
        <mesh ref={mesh}>
         <boxGeometry args={[2, 1, 1]} />
+        <boxBufferGeometry attach="geometry" />
+        <meshStandardMaterial attachArray="material" map={texture1} />
+        <meshStandardMaterial attachArray="material" map={texture2} />
+        <meshStandardMaterial attachArray="material" map={texture3} />
+        <meshStandardMaterial attachArray="material" map={texture4} />
+        <meshStandardMaterial attachArray="material" map={texture5} />
+        <meshStandardMaterial attachArray="material" map={texture6} />
     </mesh>
     </>
   );
