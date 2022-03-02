@@ -1,79 +1,88 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 
 import RandomWord from "../../reusablecomps/wordGameParts/words";
 
-export class Wordsearch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      listOfWords: [],
-      newList: [],
-      count: 0,
-      rHeight: 0,
-      gWidth: 0,
-      startCell: 0,
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange = (e) => {
-    this.userInput = e.target.value;
+export function Wordsearch() {
+  const [state, setState] = useState({
+    listOfWords: [],
+    newList: [],
+    key: 0,
+    count: 0,
+    rHeight: 0,
+    gWidth: 0,
+    startCell: 0,
+  });
 
-    return this.userInput;
+  const handleChange = (e) => {
+    var userInput = e.target.value;
+
+    return userInput;
   };
 
   /**get 30 words to use in search, check each word length >3*/
-  listWords = () => {
+  const createListWords = () => {
     var word = RandomWord();
     if (word.length < 4) {
       word = RandomWord();
     }
 
     if (
-      this.state.listOfWords.length < 30 &&
-      this.state.listOfWords.indexOf(word) === -1
+      state.listOfWords.length < 30 &&
+      state.listOfWords.indexOf(word) === -1
     ) {
-      this.state.listOfWords.push(word);
+      state.listOfWords.push(word);
 
-      this.listWords();
-    } else if (this.state.listOfWords.length === 30) {
-      this.wordLength();
-      this.makeGrid();
-      return this.setState({ listOfWords: this.state.listOfWords.sort() });
+      createListWords();
+    } else if (state.listOfWords.length === 30) {
+      wordLength();
+      makeGrid();
+      setState((prev) => ({ ...prev, listOfWords: state.listOfWords.sort() }));
     } else {
-      this.listWords();
+      createListWords();
     }
   };
 
   /**copy list of words so able to alter  */
-  wordLength = () => {
-    this.setState({
-      newList: (this.newList = this.state.listOfWords.map((words) => words)),
+  const wordLength = () => {
+     var newList = state.listOfWords.map((words) => words);
+    state.newList= newList.sort(function (a, b) {
+      return b.length - a.length;
     });
+    setState((prev) => ({
+      ...prev,
+      newList: state.newList,
+    }));
   };
 
   /** create random grid to put words in */
-  makeGrid = () => {
+  const makeGrid = () => {
     //get element need to change
     var grid = document.getElementById("searchGrid");
-
+    state.rHeight = Math.floor(grid.clientHeight / 30);
+    state.gWidth = Math.floor(grid.clientWidth / 33);
     //height to work with for rows
-    this.setState({
-      rHeight: (this.rHeight = Math.floor(grid.clientHeight / 30)),
-    });
+
+    setState((prev) => ({
+      ...prev,
+      rHeight: state.rHeight,
+    }));
+
     // get sizing for number of columns
-    this.setState({
-      gWidth: (this.gWidth = Math.floor(grid.clientWidth / 33)),
-    });
+
+    setState((prev) => ({
+      ...prev,
+      gWidth: state.gWidth,
+    }));
 
     //add new rows/columns to element
 
-    grid.style.setProperty("--grid-row", this.rHeight);
-    grid.style.setProperty("--grid-column", this.gWidth);
+    grid.style.setProperty("--grid-row", state.rHeight);
+    grid.style.setProperty("--grid-column", state.gWidth);
 
-    grid.ariaRowCount = this.rHeight;
-    grid.ariaColCount = this.gWidth;
+    grid.ariaRowCount = state.rHeight;
+    grid.ariaColCount = state.gWidth;
 
-    for (let i = 0; i < this.gWidth * this.rHeight; i++) {
+    for (let i = 0; i < state.gWidth * state.rHeight; i++) {
       var cell = document.createElement("button");
       var num = i;
 
@@ -81,69 +90,73 @@ export class Wordsearch extends React.Component {
       grid.appendChild(cell).id = num;
       grid.appendChild(cell).className = "cell-count";
     }
-    this.wordFit();
+    wordFit();
   };
 
   /**make a random cell for word to try to be placed */
-  possStartCell = () => {
+  function possStartCell() {
     /**number of cells in grid */
-    var cellCount = this.gWidth * this.rHeight;
+    var cellCount = state.gWidth * state.rHeight;
     /**get random cell number  */
 
-    this.setState({
-      startCell: (this.startCell = Math.floor(Math.random() * cellCount)),
-    });
-  };
+    setState((prev) => ({
+      ...prev,
+      startCell: Math.floor(Math.random() * cellCount),
+    }));
+  }
 
   /**find position of start cell   */
-  startCellPosition = (z) => {
+  function startCellPosition(z) {
     var grid = document.getElementById("searchGrid");
     let col = Number(window.getComputedStyle(grid.children[0]).gridColumnStart);
-    let colCount = this.gWidth;
+    let colCount = state.gWidth;
 
     /**x=row position y=colposition */
     const x = Math.floor((z + col) / colCount);
     const y = (z + col) % colCount;
 
     return { row: x, column: y };
-  };
+  }
 
-  wordFit = () => {
-    while (this.newList.length > 0) {
+  function wordFit() {
+   
+    while (state.newList.length > 0) {
       /**get longest word in list */
-      this.newList.sort(function (a, b) {
-        return b.length - a.length;
-      });
+  
 
-      this.possStartCell();
-      var word = this.newList[0];
+      
+
+      possStartCell();
+
+      var word = state.newList[0];
 
       /**get startcell possition see if enough cells to fit word */
 
       /**left to right placement */
-      var columnStart = this.startCellPosition(this.startCell).column;
+      var columnStart = startCellPosition(state.startCell).column;
+
       var colSum = columnStart + word.length;
       /**top to bottom placement */
-      var rowStart = this.startCellPosition(this.startCell).row;
+      var rowStart = startCellPosition(state.startCell).row;
       var rowSum = rowStart + word.length;
       /**if theres enough room in row */
-      if (colSum < this.gWidth) {
-        this.rowLetterPlaceCheck(this.startCell);
+      if (colSum < state.gWidth) {
+        rowLetterPlaceCheck(state.startCell);
         /**if theres enough room in column */
-      } else if (rowSum < this.rHeight) {
-        this.colLetterPlaceCheck(this.startCell);
+      } else if (rowSum < state.rHeight) {
+        colLetterPlaceCheck(state.startCell);
       }
     }
-    if (this.newList.length === 0) {
-      this.blankSpaceFill();
+    if (state.newList.length === 0) {
+      // blankSpaceFill();
     }
-  };
+  }
   /**to check whole word fits on the row before placement */
-  rowLetterPlaceCheck = (x) => {
+  function rowLetterPlaceCheck(x) {
     var cellStart = x;
 
-    while (this.newList[0].length !== "undefined") {
-      var word = this.newList[0];
+    while (state.newList[0].length !== "undefined") {
+      var word = state.newList[0];
       var letterSplit = word.split("");
       var bin1 = [];
       while (letterSplit.length !== 0) {
@@ -155,19 +168,20 @@ export class Wordsearch extends React.Component {
           if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
             bin1.push(letterSplit.shift());
           } else {
-            this.wordFit();
+            wordFit();
           }
         }
       }
 
       if (bin1.length === word.length) {
-        this.rowLetterPlace(word, x);
-        this.newList.shift();
+        rowLetterPlace(word, x);
+        state.newList.shift();
+        console.log(state.newList)
       }
     }
-  };
+  }
   /**to place word in row */
-  rowLetterPlace = (word, x) => {
+  function rowLetterPlace(word, x) {
     var cellNumber = x;
 
     while (word.length > 0) {
@@ -185,39 +199,40 @@ export class Wordsearch extends React.Component {
         word = "";
       }
     }
-    this.newList.shift();
-    this.wordFit();
-  };
+    state.newList.shift();
+    console.log(state.newList)
+    wordFit();
+  }
 
   /**to check whole word fits in columns */
-  colLetterPlaceCheck = (x) => {
+  function colLetterPlaceCheck(x) {
     var cellStart = x;
 
-    while (this.newList[0].length !== 0) {
-      var word = this.newList[0];
+    while (state.newList[0].length !== 0) {
+      var word = state.newList[0];
       var letterSplit = word.split("");
       var bin1 = [];
       while (letterSplit.length !== 0) {
         for (let i = 0; i < letterSplit.length; i++) {
-          cellStart = cellStart + this.gWidth;
+          cellStart = cellStart + state.gWidth;
           var letter = letterSplit[i];
           var cellToTry = document.getElementById(cellStart);
           if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
             bin1.push(letterSplit.shift());
           } else {
-            this.wordFit();
+            wordFit();
           }
         }
       }
 
       if (bin1.length === word.length) {
-        this.columnLetterPlace(word, x);
-        this.newList.shift();
+        columnLetterPlace(word, x);
+        state.newList.shift();
       }
     }
-  };
+  }
   /**to place word in column */
-  columnLetterPlace = (word, x) => {
+  function columnLetterPlace(word, x) {
     var cellNumber = x;
 
     while (word.length > 0) {
@@ -226,7 +241,7 @@ export class Wordsearch extends React.Component {
         var letterSplit = letters[0].split("");
 
         while (letterSplit.length > 0) {
-          cellNumber = cellNumber + this.gWidth;
+          cellNumber = cellNumber + state.gWidth;
           var cell = document.getElementById(cellNumber);
           cell.innerText = letterSplit[0];
           letterSplit.shift();
@@ -236,12 +251,12 @@ export class Wordsearch extends React.Component {
       }
     }
 
-    this.newList.shift();
+    state.newList.shift();
 
-    this.wordFit();
-  };
+    wordFit();
+  }
   /**to fill any spaces left in grid */
-  blankSpaceFill = () => {
+  function blankSpaceFill() {
     const alphabet = [
       "a",
       "b",
@@ -270,7 +285,7 @@ export class Wordsearch extends React.Component {
       "y",
       "z",
     ];
-    const cellNum = this.gWidth * this.rHeight;
+    const cellNum = state.gWidth * state.rHeight;
 
     for (let i = 0; i < cellNum; i++) {
       var checkCells = document.getElementById(i);
@@ -282,43 +297,42 @@ export class Wordsearch extends React.Component {
         checkCells.innerText = randomLetter;
       }
     }
-  };
+  }
   /**user needs to highlight  words ,words in list marked as found */
 
   /**possible hint option of showing  1 first letter of hidden word */
 
-  render() {
-    return (
-      <Fragment>
-        <div className="wordsearch">
-          <h1>Wordsearch</h1>
-          <button
-            tabIndex={0}
-            id="start"
-            aria-label="start"
-            type="button"
-            onClick={this.listWords}
-          >
-            Start
-          </button>
-          <div className="listWords">
-            <h2 className="list">Words to find </h2>
-            <ul id="wordList">
-              {this.state.listOfWords.sort().map((words) => (
-                <li id="wList" key={this.state.listOfWords.indexOf(words)}>
-                  {words}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div
-            className="searchGrid"
-            id="searchGrid"
-            role="grid"
-            ariarowindex=""
-          ></div>
+  //render() {
+  return (
+    <Fragment>
+      <div className="wordsearch">
+        <h1>Wordsearch</h1>
+        <button
+          tabIndex={0}
+          id="start"
+          aria-label="start"
+          type="button"
+          onClick={createListWords}
+        >
+          Start
+        </button>
+        <div className="listWords">
+          <h2 className="list">Words to find </h2>
+          <ul id="wordList">
+            {state.listOfWords.sort().map((words) => (
+              <li id="wList" key={state.listOfWords.indexOf(words)}>
+                {words}
+              </li>
+            ))}
+          </ul>
         </div>
-      </Fragment>
-    );
-  }
+        <div
+          className="searchGrid"
+          id="searchGrid"
+          role="grid"
+          ariarowindex=""
+        ></div>
+      </div>
+    </Fragment>
+  );
 }

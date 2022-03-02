@@ -1,6 +1,8 @@
 /** unscramble styles*/
-.unscramble{
-  margin-bottom: 6rem;
+.unscramble {
+  display: block;
+ padding-bottom: 10rem;
+  height:auto;
 }
 h2 {
   font-size: 1.6rem;
@@ -38,17 +40,17 @@ p {
   font-size: 1.5rem;
 }
 /** styles for hint to be shown*/
-#hintReveal{
+#hintReveal {
   font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 5rem;
 }
 /** button styles for this page only*/
 #level,
 #newWord,
 #try,
-#newGame ,
-#hint
-{
+#newGame,
+#hint {
   width: 6rem;
   height: 4rem;
   font-size: 1.5rem;
@@ -62,8 +64,7 @@ p {
 #level:hover,
 #try:hover,
 #newGame:hover,
-#hint:hover
- {
+#hint:hover {
   background-color: black;
   color: antiquewhite;
 }
@@ -81,21 +82,19 @@ p {
 #newGame {
   margin-right: 5rem;
 }
-#try{
+#try {
   margin-left: 1rem;
 }
-#hint{
-  margin-top:1rem;
+#hint {
+  margin-top: 1rem;
 }
-#newGame{
-  width:6rem;
- 
+#newGame {
+  width: 6rem;
 }
 /**styles to make clear where user is tabbed */
 input:focus-visible,
 button:focus-visible,
 ul:focus-visible,
 li:focus-visible {
-  
- outline: 5px solid rgb(58, 27, 236);
+  outline: 5px solid rgb(58, 27, 236);
 }
