@@ -44,8 +44,8 @@ export function Wordsearch() {
 
   /**copy list of words so able to alter  */
   const wordLength = () => {
-     var newList = state.listOfWords.map((words) => words);
-    state.newList= newList.sort(function (a, b) {
+    var newList = state.listOfWords.map((words) => words);
+    state.newList = newList.sort(function (a, b) {
       return b.length - a.length;
     });
     setState((prev) => ({
@@ -98,10 +98,10 @@ export function Wordsearch() {
     /**number of cells in grid */
     var cellCount = state.gWidth * state.rHeight;
     /**get random cell number  */
-
+    state.startCell = Math.floor(Math.random() * cellCount);
     setState((prev) => ({
       ...prev,
-      startCell: Math.floor(Math.random() * cellCount),
+      startCell: state.startCell,
     }));
   }
 
@@ -119,12 +119,8 @@ export function Wordsearch() {
   }
 
   function wordFit() {
-   
     while (state.newList.length > 0) {
       /**get longest word in list */
-  
-
-      
 
       possStartCell();
 
@@ -148,7 +144,7 @@ export function Wordsearch() {
       }
     }
     if (state.newList.length === 0) {
-      // blankSpaceFill();
+      blankSpaceFill();
     }
   }
   /**to check whole word fits on the row before placement */
@@ -176,7 +172,6 @@ export function Wordsearch() {
       if (bin1.length === word.length) {
         rowLetterPlace(word, x);
         state.newList.shift();
-        console.log(state.newList)
       }
     }
   }
@@ -200,7 +195,7 @@ export function Wordsearch() {
       }
     }
     state.newList.shift();
-    console.log(state.newList)
+
     wordFit();
   }
 
