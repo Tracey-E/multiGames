@@ -1,3 +1,4 @@
+import { Select } from "@react-three/drei";
 import React, { Fragment, useState } from "react";
 
 import RandomWord from "../../reusablecomps/wordGameParts/words";
@@ -27,13 +28,13 @@ export function Wordsearch() {
     }
 
     if (
-      state.listOfWords.length < 30 &&
+      state.listOfWords.length < 25 &&
       state.listOfWords.indexOf(word) === -1
     ) {
       state.listOfWords.push(word);
 
       createListWords();
-    } else if (state.listOfWords.length === 30) {
+    } else if (state.listOfWords.length === 25) {
       wordLength();
       makeGrid();
       setState((prev) => ({ ...prev, listOfWords: state.listOfWords.sort() }));
@@ -58,8 +59,8 @@ export function Wordsearch() {
   const makeGrid = () => {
     //get element need to change
     var grid = document.getElementById("searchGrid");
-    state.rHeight = Math.floor(grid.clientHeight / 30);
-    state.gWidth = Math.floor(grid.clientWidth / 33);
+    state.rHeight = Math.floor(grid.clientHeight / 45);
+    state.gWidth = Math.floor(grid.clientWidth / 45);
     //height to work with for rows
 
     setState((prev) => ({
@@ -159,6 +160,7 @@ export function Wordsearch() {
         for (let i = 0; i < letterSplit.length; i++) {
           cellStart = cellStart + 1;
           var letter = letterSplit[i];
+          if(letter.length !== 0 ){
           var cellToTry = document.getElementById(cellStart);
 
           if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
@@ -166,6 +168,7 @@ export function Wordsearch() {
           } else {
             wordFit();
           }
+        }
         }
       }
 
@@ -203,7 +206,7 @@ export function Wordsearch() {
   function colLetterPlaceCheck(x) {
     var cellStart = x;
 
-    while (state.newList[0].length !== 0) {
+    while (state.newList[0].length !== "undefined") {
       var word = state.newList[0];
       var letterSplit = word.split("");
       var bin1 = [];
@@ -290,28 +293,98 @@ export function Wordsearch() {
           alphabet[Math.floor(Math.random() * alphabet.length)];
 
         checkCells.innerText = randomLetter;
+        userSelector();
       }
     }
   }
   /**user needs to highlight  words ,words in list marked as found */
+  function userSelector(e) {
+    let cell = document.getElementsByClassName("cell-count");
+    var word = [];
+   
+    var selectionStart;
+    var selected = [];
+    var cells = [];
+    document.onselectstart= function(){
+      console.log('start')
+    }
+
+    document.onselectionchange = function () {
+      console.log("change");
+   selectionStart = document.getSelection().focusNode;
+   console.log(selectionStart)
+  word.push(selectionStart);
+    };
+
+    document.onmouseup = function (e) {
+    console.log("ended");
+    console.log(word)
+      for (let i = 1; i < word.length; i++) {
+        
+        if (typeof word[i].data === "string") {
+      
+          selected.push(word[i].data);
+          console.log(selected)
+          console.log(selected);
+        }
+     else if (typeof { word: [i] === "object" }) {
+       
+          cells.push(word[i]);
+          console.log(cells);
+
+          for (let i = 0; i < cells.length; i++) {
+            console.log(cells[i].id);
+            var cellId = document.getElementById(cells[i].id);
+            console.log(cellId);
+            cellId.style.backgroundColor = "aqua";
+            word[0].parentElement.style.backgroundColor = "aqua"
+          }
+        }
+      }
+
+      var findWord = selected.join("");
+      console.log(findWord)
+    };
+  }
+  /**  const letters = cellIdLetter.innerText;
+    word.push(letters);
+
+    var findWord = word.join("");
+    console.log(findWord);
+    const finder = state.listOfWords.indexOf(findWord);
+    console.log(finder);
+    if (finder > -1) {
+      var listFinder = document.getElementById("wordList");
+      console.log(listFinder);
+      for (let i = 0; i < listFinder.childNodes.length; i++) {
+        if (listFinder.childNodes[i].innerText === findWord) {
+          console.log("match");
+          console.log(listFinder.childNodes[i].innerText);
+
+          listFinder.childNodes[i].style.setProperty("display", "none");
+        } else {
+          userSelector();
+        }
+      }
+    }*/
 
   /**possible hint option of showing  1 first letter of hidden word */
 
   //render() {
   return (
     <Fragment>
+      <h1>Wordsearch</h1>
       <div className="wordsearch">
-        <h1>Wordsearch</h1>
-        <button
-          tabIndex={0}
-          id="start"
-          aria-label="start"
-          type="button"
-          onClick={createListWords}
-        >
-          Start
-        </button>
         <div className="listWords">
+          <button
+            tabIndex={0}
+            id="start"
+            aria-label="start"
+            type="button"
+            onClick={createListWords}
+          >
+            Start
+          </button>
           <h2 className="list">Words to find </h2>
           <ul id="wordList">
             {state.listOfWords.sort().map((words) => (
@@ -320,13 +393,13 @@ export function Wordsearch() {
               </li>
             ))}
           </ul>
+          <div
+            className="searchGrid"
+            id="searchGrid"
+            role="grid"
+            ariarowindex=""
+          ></div>{" "}
         </div>
-        <div
-          className="searchGrid"
-          id="searchGrid"
-          role="grid"
-          ariarowindex=""
-        ></div>
       </div>
     </Fragment>
   );
