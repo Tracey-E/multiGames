@@ -1,5 +1,4 @@
-import { Select } from "@react-three/drei";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 
 import RandomWord from "../../reusablecomps/wordGameParts/words";
 
@@ -13,6 +12,8 @@ export function Wordsearch() {
     gWidth: 0,
     startCell: 0,
   });
+  const [time, setTime] = useState(0);
+  const [running, setRunning] = useState(false);
 
   const handleChange = (e) => {
     var userInput = e.target.value;
@@ -28,13 +29,13 @@ export function Wordsearch() {
     }
 
     if (
-      state.listOfWords.length < 25 &&
+      state.listOfWords.length < 20 &&
       state.listOfWords.indexOf(word) === -1
     ) {
       state.listOfWords.push(word);
 
       createListWords();
-    } else if (state.listOfWords.length === 25) {
+    } else if (state.listOfWords.length === 20) {
       wordLength();
       makeGrid();
       setState((prev) => ({ ...prev, listOfWords: state.listOfWords.sort() }));
@@ -59,8 +60,10 @@ export function Wordsearch() {
   const makeGrid = () => {
     //get element need to change
     var grid = document.getElementById("searchGrid");
-    state.rHeight = Math.floor(grid.clientHeight / 45);
-    state.gWidth = Math.floor(grid.clientWidth / 45);
+    /**find screen width and height sizing */
+    state.rHeight = Math.floor(grid.clientHeight / 50);
+    state.gWidth = Math.floor(grid.clientWidth / 55);
+   
     //height to work with for rows
 
     setState((prev) => ({
@@ -97,7 +100,9 @@ export function Wordsearch() {
   /**make a random cell for word to try to be placed */
   function possStartCell() {
     /**number of cells in grid */
-    var cellCount = state.gWidth * state.rHeight;
+   
+    var cellCount = (state.gWidth * state.rHeight)-1;
+  
     /**get random cell number  */
     state.startCell = Math.floor(Math.random() * cellCount);
     setState((prev) => ({
@@ -135,6 +140,7 @@ export function Wordsearch() {
       var colSum = columnStart + word.length;
       /**top to bottom placement */
       var rowStart = startCellPosition(state.startCell).row;
+
       var rowSum = rowStart + word.length;
       /**if theres enough room in row */
       if (colSum < state.gWidth) {
@@ -146,6 +152,8 @@ export function Wordsearch() {
     }
     if (state.newList.length === 0) {
       blankSpaceFill();
+    } else {
+      wordFit();
     }
   }
   /**to check whole word fits on the row before placement */
@@ -159,16 +167,18 @@ export function Wordsearch() {
       while (letterSplit.length !== 0) {
         for (let i = 0; i < letterSplit.length; i++) {
           cellStart = cellStart + 1;
+       
           var letter = letterSplit[i];
-          if(letter.length !== 0 ){
-          var cellToTry = document.getElementById(cellStart);
+          if (letter.length !== 0) {
+            var cellToTry = document.getElementById(cellStart);
 
-          if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
-            bin1.push(letterSplit.shift());
-          } else {
-            wordFit();
+            if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
+              bin1.push(letterSplit.shift());
+             
+            } else {
+              wordFit();
+            }
           }
-        }
         }
       }
 
@@ -299,75 +309,160 @@ export function Wordsearch() {
   }
   /**user needs to highlight  words ,words in list marked as found */
   function userSelector(e) {
-    let cell = document.getElementsByClassName("cell-count");
-    var word = [];
-   
-    var selectionStart;
-    var selected = [];
-    var cells = [];
-    document.onselectstart= function(){
-      console.log('start')
-    }
+    //Stopwatch()
+    let cell = document.getElementById("searchGrid");
 
-    document.onselectionchange = function () {
-      console.log("change");
-   selectionStart = document.getSelection().focusNode;
-   console.log(selectionStart)
-  word.push(selectionStart);
+    cell.addEventListener("mousedown", onmousedown, false);
+  }
+
+  function onmousedown(e) {
+   
+    console.log('start')
+   
+    /**getting each user selected element */
+    var selectionStart;
+    /**holder for user selected elements */
+    var userSelectedElements = [];
+
+    /**holder for user selected elements letters */
+    var selected = [];
+    /**holder for user selected cells */
+    var cells = [];
+    /**holder for user selected cells to be used if dont match */
+    var cellIdStore = [];
+    var selection;
+
+    document.onselectstart = function (e) {
+      console.log("started");
+      selection = document.getSelection().anchorNode;
+   
+
+      setRunning(true);
     };
 
-    document.onmouseup = function (e) {
-    console.log("ended");
-    console.log(word)
-      for (let i = 1; i < word.length; i++) {
-        
-        if (typeof word[i].data === "string") {
-      
-          selected.push(word[i].data);
-          console.log(selected)
-          console.log(selected);
-        }
-     else if (typeof { word: [i] === "object" }) {
-       
-          cells.push(word[i]);
-          console.log(cells);
+    document.onselectionchange = function (e) {
+      console.log("change");
+      selectionStart = document.getSelection().focusNode;
 
+      userSelectedElements.push(selectionStart);
+     
+    };
+
+    /**when user realeses mouse button  */
+    document.onmouseup = function (e) {
+      console.log("ended");
+
+      for (let i = 1; i < userSelectedElements.length; i++) {
+        /**getting letter of selected */
+        if (typeof userSelectedElements[i].data === "string") {
+          selected.push(userSelectedElements[i].data);
+        
+          /**getting the cell id */
+        } else if (typeof { userSelectedElements: [i] === "object" }) {
+          cells.push(userSelectedElements[i]);
+        
+          /**change the cell colour to show user selected letters */
           for (let i = 0; i < cells.length; i++) {
-            console.log(cells[i].id);
             var cellId = document.getElementById(cells[i].id);
-            console.log(cellId);
+         
+            cellIdStore.push(cellId);
+
             cellId.style.backgroundColor = "aqua";
-            word[0].parentElement.style.backgroundColor = "aqua"
+            userSelectedElements[0].parentElement.style.backgroundColor =
+              "aqua";
           }
         }
       }
-
+      /**join the user-selected letters to form word */
       var findWord = selected.join("");
-      console.log(findWord)
-    };
-  }
-  /**  const letters = cellIdLetter.innerText;
-    word.push(letters);
+   
+      /**if user selected word check if in original word list */
+      if (state.listOfWords.includes(findWord)) {
+    
+        const finder = state.listOfWords.indexOf(findWord);
+      
+        if (finder > -1) {
+          var listFinder = document.getElementById("wordList");
 
-    var findWord = word.join("");
-    console.log(findWord);
-    const finder = state.listOfWords.indexOf(findWord);
-    console.log(finder);
-    if (finder > -1) {
-      var listFinder = document.getElementById("wordList");
-      console.log(listFinder);
-      for (let i = 0; i < listFinder.childNodes.length; i++) {
-        if (listFinder.childNodes[i].innerText === findWord) {
-          console.log("match");
-          console.log(listFinder.childNodes[i].innerText);
-
-          listFinder.childNodes[i].style.setProperty("display", "none");
+          for (let i = 0; i < listFinder.childNodes.length; i++) {
+            if (listFinder.childNodes[i].innerText === findWord) {
+              console.log("match");
+              /**if found remove word from find list and empty all arrays */
+              listFinder.childNodes[i].style.setProperty("display", "none");
+              selected = [];
+           
+              findWord = "";
+            
+              userSelectedElements = [];
+           
+              cells = [];
+           
+              cellIdStore = [];
+            
+              selection = "";
+            
+            }
+          }
+          /**if index of word not found */
         } else {
+          console.log("no matches");
+         
+          for (let i = 0; i < cellIdStore.length; i++) {
+            var cellIds = document.getElementById(cellIdStore[i].id);
+            cellIds.style.backgroundColor = "aliceblue";
+            userSelectedElements[0].parentElement.style.backgroundColor =
+              "aliceblue";
+          }
           userSelector();
         }
-      }
-    }*/
+        /**if user selected word not found in  list */
+      } else {
+        console.log("no match");
 
+      
+        for (let i = 0; i < cellIdStore.length; i++) {
+          cellIds = document.getElementById(cellIdStore[i].id);
+          cellIds.style.backgroundColor = "aliceblue";
+
+          userSelectedElements[0].parentElement.style.backgroundColor =
+            "aliceblue";
+        }
+        findWord = "";
+        cellIdStore = [];
+        cellIds = [];
+        selection = "";
+        selected = [];
+        // word[0].parentElement.style.backgroundColor = "aliceblue";
+        userSelector();
+      }
+    };
+    const wordListCheck = document.getElementById("wordList");
+    
+    if (wordListCheck.childNodes.length === 0) {
+      console.log(wordListCheck.innerText)
+      setRunning(false);
+    }
+  }
+  /**timer to say how long took to find words */
+  function Stopwatch() {
+    useEffect(() => {
+      let interval;
+      if (running) {
+        interval = setInterval(() => {
+          setTime((prevTime) => prevTime + 10);
+        }, 10);
+      } else if (!running) {
+        clearInterval(interval);
+      }
+      return () => clearInterval(interval);
+    }, [running]);
+    return (
+      <div className="timer">
+        <span>{("0" + Math.floor((time / 60000) % 60)).slice(-2)}:</span>
+        <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
+      </div>
+    );
+  }
   /**possible hint option of showing  1 first letter of hidden word */
 
   //render() {
@@ -385,6 +480,7 @@ export function Wordsearch() {
           >
             Start
           </button>
+        
           <h2 className="list">Words to find </h2>
           <ul id="wordList">
             {state.listOfWords.sort().map((words) => (
@@ -399,7 +495,9 @@ export function Wordsearch() {
             role="grid"
             ariarowindex=""
           ></div>{" "}
+ <Stopwatch/>
         </div>
+      
       </div>
     </Fragment>
   );
