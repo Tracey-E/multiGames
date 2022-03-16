@@ -63,7 +63,7 @@ export function Wordsearch() {
     /**find screen width and height sizing */
     state.rHeight = Math.floor(grid.clientHeight / 50);
     state.gWidth = Math.floor(grid.clientWidth / 55);
-   
+
     //height to work with for rows
 
     setState((prev) => ({
@@ -100,9 +100,9 @@ export function Wordsearch() {
   /**make a random cell for word to try to be placed */
   function possStartCell() {
     /**number of cells in grid */
-   
-    var cellCount = (state.gWidth * state.rHeight)-1;
-  
+
+    var cellCount = state.gWidth * state.rHeight - 1;
+
     /**get random cell number  */
     state.startCell = Math.floor(Math.random() * cellCount);
     setState((prev) => ({
@@ -167,14 +167,13 @@ export function Wordsearch() {
       while (letterSplit.length !== 0) {
         for (let i = 0; i < letterSplit.length; i++) {
           cellStart = cellStart + 1;
-       
+
           var letter = letterSplit[i];
           if (letter.length !== 0) {
             var cellToTry = document.getElementById(cellStart);
 
             if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
               bin1.push(letterSplit.shift());
-             
             } else {
               wordFit();
             }
@@ -316,9 +315,8 @@ export function Wordsearch() {
   }
 
   function onmousedown(e) {
-   
-    console.log('start')
-   
+    console.log("start");
+
     /**getting each user selected element */
     var selectionStart;
     /**holder for user selected elements */
@@ -335,7 +333,6 @@ export function Wordsearch() {
     document.onselectstart = function (e) {
       console.log("started");
       selection = document.getSelection().anchorNode;
-   
 
       setRunning(true);
     };
@@ -345,7 +342,6 @@ export function Wordsearch() {
       selectionStart = document.getSelection().focusNode;
 
       userSelectedElements.push(selectionStart);
-     
     };
 
     /**when user realeses mouse button  */
@@ -356,15 +352,15 @@ export function Wordsearch() {
         /**getting letter of selected */
         if (typeof userSelectedElements[i].data === "string") {
           selected.push(userSelectedElements[i].data);
-        
+
           /**getting the cell id */
         } else if (typeof { userSelectedElements: [i] === "object" }) {
           cells.push(userSelectedElements[i]);
-        
+
           /**change the cell colour to show user selected letters */
           for (let i = 0; i < cells.length; i++) {
             var cellId = document.getElementById(cells[i].id);
-         
+
             cellIdStore.push(cellId);
 
             cellId.style.backgroundColor = "aqua";
@@ -375,12 +371,11 @@ export function Wordsearch() {
       }
       /**join the user-selected letters to form word */
       var findWord = selected.join("");
-   
+
       /**if user selected word check if in original word list */
       if (state.listOfWords.includes(findWord)) {
-    
         const finder = state.listOfWords.indexOf(findWord);
-      
+
         if (finder > -1) {
           var listFinder = document.getElementById("wordList");
 
@@ -388,25 +383,30 @@ export function Wordsearch() {
             if (listFinder.childNodes[i].innerText === findWord) {
               console.log("match");
               /**if found remove word from find list and empty all arrays */
-              listFinder.childNodes[i].style.setProperty("display", "none");
+              //listFinder.childNodes[i].style.setProperty("display", "none");
+
+              var num = state.listOfWords.indexOf(findWord);
+              console.log(num);
+              state.listOfWords.splice(num, 1);
+              console.log(state.listOfWords);
+
               selected = [];
-           
+
               findWord = "";
-            
+
               userSelectedElements = [];
-           
+
               cells = [];
-           
+
               cellIdStore = [];
-            
+
               selection = "";
-            
             }
           }
           /**if index of word not found */
         } else {
           console.log("no matches");
-         
+
           for (let i = 0; i < cellIdStore.length; i++) {
             var cellIds = document.getElementById(cellIdStore[i].id);
             cellIds.style.backgroundColor = "aliceblue";
@@ -415,11 +415,11 @@ export function Wordsearch() {
           }
           userSelector();
         }
+
         /**if user selected word not found in  list */
       } else {
         console.log("no match");
 
-      
         for (let i = 0; i < cellIdStore.length; i++) {
           cellIds = document.getElementById(cellIdStore[i].id);
           cellIds.style.backgroundColor = "aliceblue";
@@ -435,13 +435,10 @@ export function Wordsearch() {
         // word[0].parentElement.style.backgroundColor = "aliceblue";
         userSelector();
       }
+      if (state.listOfWords.length === 0) {
+        setRunning(false);
+      }
     };
-    const wordListCheck = document.getElementById("wordList");
-    
-    if (wordListCheck.childNodes.length === 0) {
-      console.log(wordListCheck.innerText)
-      setRunning(false);
-    }
   }
   /**timer to say how long took to find words */
   function Stopwatch() {
@@ -463,7 +460,6 @@ export function Wordsearch() {
       </div>
     );
   }
-  /**possible hint option of showing  1 first letter of hidden word */
 
   //render() {
   return (
@@ -480,7 +476,6 @@ export function Wordsearch() {
           >
             Start
           </button>
-        
           <h2 className="list">Words to find </h2>
           <ul id="wordList">
             {state.listOfWords.sort().map((words) => (
@@ -495,9 +490,8 @@ export function Wordsearch() {
             role="grid"
             ariarowindex=""
           ></div>{" "}
- <Stopwatch/>
+          <Stopwatch />
         </div>
-      
       </div>
     </Fragment>
   );
