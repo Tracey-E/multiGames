@@ -75,8 +75,12 @@ h1 {
   row-gap: 0.2em;
   column-gap: 0.5em;
   margin: auto;
-  user-select: text;
+  user-select: none;
   margin-top: 1em;
+  background-color: azure !important;
+  border: 5px solid;
+  padding: 2em;
+  contain: content ;
 }
 /** inner grid cells*/
 .searchGrid button:first-child {
@@ -84,6 +88,7 @@ h1 {
   height: 1.5em;
   width: 1.5em;
   border: 2px solid grey;
+ 
 }
 .cell-count {
   text-align: center;
@@ -93,24 +98,36 @@ h1 {
   height: 1.5em;
   background-color: aliceblue;
   width: 1.5em;
+  
 }
 .cell-count:hover {
   background-color: yellowgreen;
 }
-::selection {
-  user-select: text;
-  text-decoration: none;
-  background-color: aqua;
+/** completion options*/
+#complete{
+  display:none;
+  height:6em;
+  width:20em;
+  border: 2px solid black;
 }
-::moz-selection {
-  user-select: text;
-  background-color: aqua;
+#complete button{
+  justify-self: center;
+  align-self: center;
+  width: 6rem;
+  height: 4rem;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: rgb(192, 207, 219);
+  color: black;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+#complete button:hover{
+  background-color: red;
+  color: aliceblue;
 }
 
-::webkit-selection {
-  user-select: text;
-  background-color: aqua;
-}
+
 /** timer*/
 .timer {
   height: 3rem;

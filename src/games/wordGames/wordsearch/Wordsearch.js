@@ -16,9 +16,9 @@ export function Wordsearch() {
   const [running, setRunning] = useState(false);
 
   const handleChange = (e) => {
-    var userInput = e.target.value;
+    var selectChange = e.target.value;
 
-    return userInput;
+    return selectChange;
   };
 
   /**get 30 words to use in search, check each word length >3*/
@@ -125,9 +125,7 @@ export function Wordsearch() {
   }
 
   function wordFit() {
-    while (state.newList.length > 0) {
-      /**get longest word in list */
-
+    while (state.newList.length !== 0) {
       possStartCell();
 
       var word = state.newList[0];
@@ -158,17 +156,26 @@ export function Wordsearch() {
   }
   /**to check whole word fits on the row before placement */
   function rowLetterPlaceCheck(x) {
+    //possible cell position
     var cellStart = x;
-
-    while (state.newList[0].length !== "undefined") {
+    //checking if still words to fit
+    if (state.newList.length > 0) {
+      //word trying to fit
       var word = state.newList[0];
+      //word split down into letters
       var letterSplit = word.split("");
+
+      //used to store letter that have tried to be placed
       var bin1 = [];
+
+      //check each letter in word to see if fits in adjacent cells
       while (letterSplit.length !== 0) {
         for (let i = 0; i < letterSplit.length; i++) {
+          //using +1 for adjacent cell to right
           cellStart = cellStart + 1;
-
+          //individual letter of each word
           var letter = letterSplit[i];
+
           if (letter.length !== 0) {
             var cellToTry = document.getElementById(cellStart);
 
@@ -177,14 +184,26 @@ export function Wordsearch() {
             } else {
               wordFit();
             }
+          } else {
+            wordFit();
           }
         }
       }
-
+      //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
+     
       if (bin1.length === word.length) {
+        console.log("fitted");
         rowLetterPlace(word, x);
         state.newList.shift();
+      
+        bin1 = [];
+        letter = "";
+        letterSplit = [];
+      } else if (state.newList.length === 0) {
+        blankSpaceFill();
       }
+    } else if (state.newList.length === 0) {
+      blankSpaceFill();
     }
   }
   /**to place word in row */
@@ -207,37 +226,61 @@ export function Wordsearch() {
       }
     }
     state.newList.shift();
-
-    wordFit();
+    if (state.newList.length === 0) {
+      blankSpaceFill();
+    } else {
+      wordFit();
+    }
   }
 
   /**to check whole word fits in columns */
   function colLetterPlaceCheck(x) {
+    //possible cell position
     var cellStart = x;
-
-    while (state.newList[0].length !== "undefined") {
+    //checking still words to fit
+    if (state.newList.length > 0) {
+      //word trying to fit
       var word = state.newList[0];
+      //word split down into letters
       var letterSplit = word.split("");
+      //used to store letter that have tried to be placed
       var bin1 = [];
+
+      //check each letter in word to see if fits in adjacent cells
       while (letterSplit.length !== 0) {
         for (let i = 0; i < letterSplit.length; i++) {
+          //using gWidth as need to go in cell below
           cellStart = cellStart + state.gWidth;
           var letter = letterSplit[i];
-          var cellToTry = document.getElementById(cellStart);
-          if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
-            bin1.push(letterSplit.shift());
+
+          if (letter.length !== 0) {
+            var cellToTry = document.getElementById(cellStart);
+
+            if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
+              bin1.push(letterSplit.shift());
+
+              //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
+            } else {
+              wordFit();
+            }
           } else {
             wordFit();
           }
         }
       }
-
       if (bin1.length === word.length) {
+        console.log("fitted");
         columnLetterPlace(word, x);
         state.newList.shift();
+        bin1 = [];
+        letter = "";
+        letterSplit = [];
       }
+    } else if (state.newList.length === 0) {
+      blankSpaceFill();
     }
   }
+
   /**to place word in column */
   function columnLetterPlace(word, x) {
     var cellNumber = x;
@@ -257,11 +300,14 @@ export function Wordsearch() {
         word = "";
       }
     }
-
     state.newList.shift();
-
-    wordFit();
+    if (state.newList.length === 0) {
+      blankSpaceFill();
+    } else {
+      wordFit();
+    }
   }
+
   /**to fill any spaces left in grid */
   function blankSpaceFill() {
     const alphabet = [
@@ -302,141 +348,107 @@ export function Wordsearch() {
           alphabet[Math.floor(Math.random() * alphabet.length)];
 
         checkCells.innerText = randomLetter;
+      }
+      if (cellNum - 1 === i) {
         userSelector();
       }
+      //  if all cells are filled run userSelector()
     }
-  }
-  /**user needs to highlight  words ,words in list marked as found */
-  function userSelector(e) {
-    //Stopwatch()
-    let cell = document.getElementById("searchGrid");
-
-    cell.addEventListener("mousedown", onmousedown, false);
+    //why this not working
+    // console.log(cellNum);
+    // console.log(checkCells.id);
   }
 
-  function onmousedown(e) {
+  /**it should on mouse down-mouseover get the selected inner text from the user selected cell-count and hightlight aqua to show selected
+   * the inner text from the cell and check it against wordList
+   
+   */
+  function userSelector() {
     console.log("start");
+    var cellCount = state.gWidth * state.rHeight;
 
-    /**getting each user selected element */
-    var selectionStart;
-    /**holder for user selected elements */
-    var userSelectedElements = [];
-
-    /**holder for user selected elements letters */
+    for (let i = 0; i < cellCount; i++) {
+      var num = i;
+      var cell = document.getElementById(num);
+    }
+    //holder for selected text
     var selected = [];
-    /**holder for user selected cells */
-    var cells = [];
-    /**holder for user selected cells to be used if dont match */
-    var cellIdStore = [];
-    var selection;
+    // holder for selected cell ids
+    var selectedCellId = [];
 
-    document.onselectstart = function (e) {
-      console.log("started");
-      selection = document.getSelection().anchorNode;
+    //holder for highlighted cells
+    var highlightSelectedCell = [];
 
-      setRunning(true);
+    let mousedown = false;
+    //let mouseover = false
+
+    //only when mousedown active fire the mouse over event
+    cell.addEventListener("mousedown", onmousedown);
+
+    onmousedown = function (e) {
+      mousedown = true;
+
+      cell.addEventListener("mouseover", onmouseover);
+      cell.addEventListener("mouseup", onmouseup);
+      cell.addEventListener("mouseenter", onmouseenter);
     };
+    onmouseover = function (e) {
+      var grid = document.getElementById("searchGrid");
+      if (mousedown && e.target !== grid) {
+        setRunning(true);
+        //letters selected
+        selected.push(e.target.innerText);
+        //selected cellids
+        selectedCellId.push(e.target.id);
 
-    document.onselectionchange = function (e) {
-      console.log("change");
-      selectionStart = document.getSelection().focusNode;
-
-      userSelectedElements.push(selectionStart);
-    };
-
-    /**when user realeses mouse button  */
-    document.onmouseup = function (e) {
-      console.log("ended");
-
-      for (let i = 1; i < userSelectedElements.length; i++) {
-        /**getting letter of selected */
-        if (typeof userSelectedElements[i].data === "string") {
-          selected.push(userSelectedElements[i].data);
-
-          /**getting the cell id */
-        } else if (typeof { userSelectedElements: [i] === "object" }) {
-          cells.push(userSelectedElements[i]);
-
-          /**change the cell colour to show user selected letters */
-          for (let i = 0; i < cells.length; i++) {
-            var cellId = document.getElementById(cells[i].id);
-
-            cellIdStore.push(cellId);
-
-            cellId.style.backgroundColor = "aqua";
-            userSelectedElements[0].parentElement.style.backgroundColor =
-              "aqua";
+        //change selected cell color to aqua
+        for (let i = 0; i < selectedCellId; i++) {
+          highlightSelectedCell.push(selectedCellId.shift());
+          for (let y = 0; y < highlightSelectedCell.length; y++) {
+            document.getElementById(
+              highlightSelectedCell[y]
+            ).style.backgroundColor = "aqua";
           }
         }
       }
-      /**join the user-selected letters to form word */
-      var findWord = selected.join("");
-
-      /**if user selected word check if in original word list */
-      if (state.listOfWords.includes(findWord)) {
-        const finder = state.listOfWords.indexOf(findWord);
-
-        if (finder > -1) {
-          var listFinder = document.getElementById("wordList");
-
-          for (let i = 0; i < listFinder.childNodes.length; i++) {
-            if (listFinder.childNodes[i].innerText === findWord) {
-              console.log("match");
-              /**if found remove word from find list and empty all arrays */
-              //listFinder.childNodes[i].style.setProperty("display", "none");
-
-              var num = state.listOfWords.indexOf(findWord);
-              console.log(num);
-              state.listOfWords.splice(num, 1);
-              console.log(state.listOfWords);
-
-              selected = [];
-
-              findWord = "";
-
-              userSelectedElements = [];
-
-              cells = [];
-
-              cellIdStore = [];
-
-              selection = "";
-            }
+    };
+    onmouseup = function (e) {
+      mousedown = false;
+      //join selected letters
+      var selectedWord = selected.join("");
+      console.log(selectedWord);
+      //check selected word against wordlist
+      if (state.listOfWords.includes(selectedWord)) {
+        //if word is in wordlist remove word from wordlist
+        state.listOfWords.splice(state.listOfWords.indexOf(selectedWord), 1);
+        console.log(state.listOfWords);
+        //remove selectedWord from display in wordList
+        var wordList = document.getElementById("wordList");
+        console.log(wordList.childNodes);
+        for (let i = 0; i < wordList.length; i++) {
+          if (wordList[i].innerText === selectedWord) {
+            wordList[i].style.display = "none";
           }
-          /**if index of word not found */
-        } else {
-          console.log("no matches");
-
-          for (let i = 0; i < cellIdStore.length; i++) {
-            var cellIds = document.getElementById(cellIdStore[i].id);
-            cellIds.style.backgroundColor = "aliceblue";
-            userSelectedElements[0].parentElement.style.backgroundColor =
-              "aliceblue";
-          }
-          userSelector();
         }
-
-        /**if user selected word not found in  list */
-      } else {
-        console.log("no match");
-
-        for (let i = 0; i < cellIdStore.length; i++) {
-          cellIds = document.getElementById(cellIdStore[i].id);
-          cellIds.style.backgroundColor = "aliceblue";
-
-          userSelectedElements[0].parentElement.style.backgroundColor =
-            "aliceblue";
-        }
-        findWord = "";
-        cellIdStore = [];
-        cellIds = [];
-        selection = "";
         selected = [];
-        // word[0].parentElement.style.backgroundColor = "aliceblue";
-        userSelector();
+        selectedCellId = [];
+        highlightSelectedCell = [];
+      } else {
+        //if no match
+        //remove background color from selected cells
+        for (let i = 0; i < highlightSelectedCell.length; i++) {
+          document.getElementById(
+            highlightSelectedCell[i]
+          ).style.backgroundColor = "aliceblue";
+        }
+        selected = [];
+        selectedCellId = [];
+        highlightSelectedCell = [];
       }
       if (state.listOfWords.length === 0) {
         setRunning(false);
+        var options = (document.getElementById("complete").style.display =
+          "block");
       }
     };
   }
@@ -459,6 +471,12 @@ export function Wordsearch() {
         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
       </div>
     );
+  }
+  function reload() {
+    window.location.reload();
+  }
+  function returnPage() {
+    window.location.href = "./wordPage";
   }
 
   //render() {
@@ -484,6 +502,28 @@ export function Wordsearch() {
               </li>
             ))}
           </ul>
+          <div id="complete">
+            <h4>Congratulations!!!<br/>
+            You completed all words in +{time}
+             Do you want to play again</h4>
+            <button
+              aria-label="restart"
+              id="restart"
+              type="button"
+              onClick={reload}
+            >
+              yes
+            </button>
+
+            <button
+              aria-label="return to word page"
+              id="returnToWordPage"
+              type="button"
+              onClick={returnPage}
+            >
+              no
+            </button>
+          </div>
           <div
             className="searchGrid"
             id="searchGrid"
