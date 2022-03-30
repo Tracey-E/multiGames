@@ -11,15 +11,10 @@ export function Wordsearch() {
     rHeight: 0,
     gWidth: 0,
     startCell: 0,
+    keepHighlight:[]
   });
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
-
-  const handleChange = (e) => {
-    var selectChange = e.target.value;
-
-    return selectChange;
-  };
 
   /**get 30 words to use in search, check each word length >3*/
   const createListWords = () => {
@@ -33,7 +28,6 @@ export function Wordsearch() {
       state.listOfWords.indexOf(word) === -1
     ) {
       state.listOfWords.push(word);
-
       createListWords();
     } else if (state.listOfWords.length === 20) {
       wordLength();
@@ -78,7 +72,7 @@ export function Wordsearch() {
       gWidth: state.gWidth,
     }));
 
-    //add new rows/columns to element
+    //add new rows/columns to grid
 
     grid.style.setProperty("--grid-row", state.rHeight);
     grid.style.setProperty("--grid-column", state.gWidth);
@@ -100,7 +94,6 @@ export function Wordsearch() {
   /**make a random cell for word to try to be placed */
   function possStartCell() {
     /**number of cells in grid */
-
     var cellCount = state.gWidth * state.rHeight - 1;
 
     /**get random cell number  */
@@ -117,15 +110,16 @@ export function Wordsearch() {
     let col = Number(window.getComputedStyle(grid.children[0]).gridColumnStart);
     let colCount = state.gWidth;
 
-    /**x=row position y=colposition */
+    /** x = row position, y = colposition */
     const x = Math.floor((z + col) / colCount);
     const y = (z + col) % colCount;
 
     return { row: x, column: y };
   }
 
+  /**check if enough room for the word */
   function wordFit() {
-    while (state.newList.length !== 0) {
+    if (state.newList.length > 0) {
       possStartCell();
 
       var word = state.newList[0];
@@ -136,16 +130,35 @@ export function Wordsearch() {
       var columnStart = startCellPosition(state.startCell).column;
 
       var colSum = columnStart + word.length;
+      console.log(colSum);
       /**top to bottom placement */
       var rowStart = startCellPosition(state.startCell).row;
 
       var rowSum = rowStart + word.length;
-      /**if theres enough room in row */
-      if (colSum < state.gWidth) {
-        rowLetterPlaceCheck(state.startCell);
-        /**if theres enough room in column */
-      } else if (rowSum < state.rHeight) {
+      console.log(rowSum);
+      /**if theres enough room in row and column math random to choose position*/
+      if (colSum < state.gWidth && rowSum < state.rHeight) {
+        console.log("both");
+        let position = Math.floor(Math.random() * 2);
+        console.log(position);
+        if (position === 0) {
+          /**left to right placement */
+          rowLetterPlaceCheck(state.startCell);
+          console.log(state.startCell);
+        } else if (position === 1) {
+          /**top to bottom placement */
+          colLetterPlaceCheck(state.startCell);
+        }
+        /**if only enough room in row */
+      } else if (rowSum < state.rHeight && colSum > state.gWidth) {
         colLetterPlaceCheck(state.startCell);
+      } /**if theres enough room in column */ else if (
+        colSum < state.gWidth &&
+        rowSum > state.rHeight
+      ) {
+        rowLetterPlaceCheck(state.startCell);
+      } else if (colSum > state.gWidth && rowSum > state.rHeight) {
+        wordFit();
       }
     }
     if (state.newList.length === 0) {
@@ -154,7 +167,7 @@ export function Wordsearch() {
       wordFit();
     }
   }
-  /**to check whole word fits on the row before placement */
+  /**to check word and individual letters  fits on the row before placement */
   function rowLetterPlaceCheck(x) {
     //possible cell position
     var cellStart = x;
@@ -190,16 +203,18 @@ export function Wordsearch() {
         }
       }
       //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
-     
+
       if (bin1.length === word.length) {
         console.log("fitted");
         rowLetterPlace(word, x);
         state.newList.shift();
-      
+
         bin1 = [];
         letter = "";
         letterSplit = [];
       } else if (state.newList.length === 0) {
+        console.log("empty");
+        console.log(state.newList.length);
         blankSpaceFill();
       }
     } else if (state.newList.length === 0) {
@@ -233,7 +248,7 @@ export function Wordsearch() {
     }
   }
 
-  /**to check whole word fits in columns */
+  /**to check whole word and individual letters fits in columns */
   function colLetterPlaceCheck(x) {
     //possible cell position
     var cellStart = x;
@@ -258,8 +273,6 @@ export function Wordsearch() {
 
             if (cellToTry.innerText === "" || cellToTry.innerText === letter) {
               bin1.push(letterSplit.shift());
-
-              //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
             } else {
               wordFit();
             }
@@ -268,6 +281,8 @@ export function Wordsearch() {
           }
         }
       }
+      //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
+
       if (bin1.length === word.length) {
         console.log("fitted");
         columnLetterPlace(word, x);
@@ -277,6 +292,8 @@ export function Wordsearch() {
         letterSplit = [];
       }
     } else if (state.newList.length === 0) {
+      console.log("empty");
+      console.log(state.newList.length);
       blankSpaceFill();
     }
   }
@@ -352,17 +369,10 @@ export function Wordsearch() {
       if (cellNum - 1 === i) {
         userSelector();
       }
-      //  if all cells are filled run userSelector()
     }
-    //why this not working
-    // console.log(cellNum);
-    // console.log(checkCells.id);
   }
 
-  /**it should on mouse down-mouseover get the selected inner text from the user selected cell-count and hightlight aqua to show selected
-   * the inner text from the cell and check it against wordList
-   
-   */
+  /**to get user selected cells and match against words in list if there is a match remove word */
   function userSelector() {
     console.log("start");
     var cellCount = state.gWidth * state.rHeight;
@@ -380,8 +390,8 @@ export function Wordsearch() {
     var highlightSelectedCell = [];
 
     let mousedown = false;
-    //let mouseover = false
-
+   
+   
     //only when mousedown active fire the mouse over event
     cell.addEventListener("mousedown", onmousedown);
 
@@ -413,18 +423,24 @@ export function Wordsearch() {
       }
     };
     onmouseup = function (e) {
+   
+
       mousedown = false;
+   
       //join selected letters
       var selectedWord = selected.join("");
       console.log(selectedWord);
       //check selected word against wordlist
       if (state.listOfWords.includes(selectedWord)) {
+       
+        setState((prev) => ({ ...prev, keepHighlight: state.keepHighlight.push(highlightSelectedCell) }));
+        console.log(state.keepHighlight);
         //if word is in wordlist remove word from wordlist
         state.listOfWords.splice(state.listOfWords.indexOf(selectedWord), 1);
-        console.log(state.listOfWords);
+
         //remove selectedWord from display in wordList
         var wordList = document.getElementById("wordList");
-        console.log(wordList.childNodes);
+
         for (let i = 0; i < wordList.length; i++) {
           if (wordList[i].innerText === selectedWord) {
             wordList[i].style.display = "none";
@@ -435,16 +451,27 @@ export function Wordsearch() {
         highlightSelectedCell = [];
       } else {
         //if no match
-        //remove background color from selected cells
+        //remove background color 
         for (let i = 0; i < highlightSelectedCell.length; i++) {
-          document.getElementById(
-            highlightSelectedCell[i]
-          ).style.backgroundColor = "aliceblue";
+          //if cell is in keephighlight  keep background color
+          setState((prev) => ({ ...prev, keepHighlight: state.keepHighlight.concat() }));
+          console.log(state.keepHighlight)
+          if (  state.keepHighlight.length >0 &&  state.keepHighlight[0].includes(highlightSelectedCell[i]) ) {
+            document.getElementById(
+              highlightSelectedCell[i]
+            ).style.backgroundColor = "aqua";
+              //remove background color from selected cells
+          } else {
+            document.getElementById(
+              highlightSelectedCell[i]
+            ).style.backgroundColor = "aliceblue";
+          }
         }
         selected = [];
         selectedCellId = [];
         highlightSelectedCell = [];
       }
+      /**once all words found show options  */
       if (state.listOfWords.length === 0) {
         setRunning(false);
         var options = (document.getElementById("complete").style.display =
@@ -471,15 +498,17 @@ export function Wordsearch() {
         <span>{("0" + Math.floor((time / 1000) % 60)).slice(-2)}</span>
       </div>
     );
+    /**if user wants to play again from options */
   }
   function reload() {
     window.location.reload();
   }
+  /**if user doesn't want to play again from options */
   function returnPage() {
     window.location.href = "./wordPage";
   }
 
-  //render() {
+  /**display properties */
   return (
     <Fragment>
       <h1>Wordsearch</h1>
@@ -503,9 +532,11 @@ export function Wordsearch() {
             ))}
           </ul>
           <div id="complete">
-            <h4>Congratulations!!!<br/>
-            You completed all words in +{time}
-             Do you want to play again</h4>
+            <h4>
+              Congratulations!!!
+              <br />
+              Do you want to play again
+            </h4>
             <button
               aria-label="restart"
               id="restart"

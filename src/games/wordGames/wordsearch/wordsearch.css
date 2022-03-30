@@ -106,7 +106,8 @@ h1 {
 /** completion options*/
 #complete{
   display:none;
-  height:6em;
+margin: auto;
+  height:10em;
   width:20em;
   border: 2px solid black;
 }
