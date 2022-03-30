@@ -11,7 +11,7 @@ export function Wordsearch() {
     rHeight: 0,
     gWidth: 0,
     startCell: 0,
-    keepHighlight:[]
+    keepHighlight: [],
   });
   const [time, setTime] = useState(0);
   const [running, setRunning] = useState(false);
@@ -121,7 +121,7 @@ export function Wordsearch() {
   function wordFit() {
     if (state.newList.length > 0) {
       possStartCell();
-
+      //get 1st word in list
       var word = state.newList[0];
 
       /**get startcell possition see if enough cells to fit word */
@@ -130,21 +130,18 @@ export function Wordsearch() {
       var columnStart = startCellPosition(state.startCell).column;
 
       var colSum = columnStart + word.length;
-      console.log(colSum);
+
       /**top to bottom placement */
       var rowStart = startCellPosition(state.startCell).row;
 
       var rowSum = rowStart + word.length;
-      console.log(rowSum);
+
       /**if theres enough room in row and column math random to choose position*/
       if (colSum < state.gWidth && rowSum < state.rHeight) {
-        console.log("both");
         let position = Math.floor(Math.random() * 2);
-        console.log(position);
         if (position === 0) {
           /**left to right placement */
           rowLetterPlaceCheck(state.startCell);
-          console.log(state.startCell);
         } else if (position === 1) {
           /**top to bottom placement */
           colLetterPlaceCheck(state.startCell);
@@ -152,17 +149,18 @@ export function Wordsearch() {
         /**if only enough room in row */
       } else if (rowSum < state.rHeight && colSum > state.gWidth) {
         colLetterPlaceCheck(state.startCell);
-      } /**if theres enough room in column */ else if (
-        colSum < state.gWidth &&
-        rowSum > state.rHeight
-      ) {
+        /**if theres enough room in column */
+      } else if (colSum < state.gWidth && rowSum > state.rHeight) {
         rowLetterPlaceCheck(state.startCell);
+        /**if no room in either */
       } else if (colSum > state.gWidth && rowSum > state.rHeight) {
         wordFit();
       }
+      //if no words left
     }
     if (state.newList.length === 0) {
       blankSpaceFill();
+      //if there are still words to place
     } else {
       wordFit();
     }
@@ -196,28 +194,34 @@ export function Wordsearch() {
               bin1.push(letterSplit.shift());
             } else {
               wordFit();
+              word = "";
+              bin1 = [];
+              letter = "";
+              letterSplit = [];
             }
-          } else {
+          } else if (letter.length === 0 && state.newList.length > 0) {
             wordFit();
+          } else if (state.newList.length === 0) {
+            blankSpaceFill();
           }
         }
       }
       //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
 
       if (bin1.length === word.length) {
-        console.log("fitted");
         rowLetterPlace(word, x);
         state.newList.shift();
-
+        word = "";
         bin1 = [];
         letter = "";
         letterSplit = [];
-      } else if (state.newList.length === 0) {
-        console.log("empty");
-        console.log(state.newList.length);
+      }
+
+      if (state.newList.length === 0) {
         blankSpaceFill();
       }
-    } else if (state.newList.length === 0) {
+    }
+    if (state.newList.length === 0) {
       blankSpaceFill();
     }
   }
@@ -229,7 +233,7 @@ export function Wordsearch() {
       for (let i = 0; i < word.length; i++) {
         var letters = word.split();
         var letterSplit = letters[0].split("");
-
+        word = "";
         while (letterSplit.length > 0) {
           cellNumber = cellNumber + 1;
           var cell = document.getElementById(cellNumber);
@@ -241,6 +245,11 @@ export function Wordsearch() {
       }
     }
     state.newList.shift();
+    setState((prev) => ({
+      ...prev,
+      newList: state.newList,
+    }));
+
     if (state.newList.length === 0) {
       blankSpaceFill();
     } else {
@@ -266,6 +275,7 @@ export function Wordsearch() {
         for (let i = 0; i < letterSplit.length; i++) {
           //using gWidth as need to go in cell below
           cellStart = cellStart + state.gWidth;
+          //individual letter of each word
           var letter = letterSplit[i];
 
           if (letter.length !== 0) {
@@ -275,25 +285,33 @@ export function Wordsearch() {
               bin1.push(letterSplit.shift());
             } else {
               wordFit();
+              word = "";
+              bin1 = [];
+              letter = "";
+              letterSplit = [];
             }
-          } else {
+          } else if (letter.length === 0 && state.newList.length > 0) {
             wordFit();
+          } else if (state.newList.length === 0) {
+            blankSpaceFill();
           }
         }
       }
-      //once bin1 length  same length as original word all letters will fit,empty letter,lettersplit,bin1 and remove fitted word from wordlist
-
+      //once bin1 length  same length as original word all letters will fit
+      //empty letter,lettersplit,bin1 and remove fitted word from wordlist
       if (bin1.length === word.length) {
-        console.log("fitted");
         columnLetterPlace(word, x);
         state.newList.shift();
+        word = "";
         bin1 = [];
         letter = "";
         letterSplit = [];
       }
-    } else if (state.newList.length === 0) {
-      console.log("empty");
-      console.log(state.newList.length);
+      if (state.newList.length === 0) {
+        blankSpaceFill();
+      }
+    }
+    if (state.newList.length === 0) {
       blankSpaceFill();
     }
   }
@@ -306,7 +324,7 @@ export function Wordsearch() {
       for (let i = 0; i < word.length; i++) {
         var letters = word.split();
         var letterSplit = letters[0].split("");
-
+        word = "";
         while (letterSplit.length > 0) {
           cellNumber = cellNumber + state.gWidth;
           var cell = document.getElementById(cellNumber);
@@ -318,6 +336,11 @@ export function Wordsearch() {
       }
     }
     state.newList.shift();
+    setState((prev) => ({
+      ...prev,
+      newList: state.newList,
+    }));
+
     if (state.newList.length === 0) {
       blankSpaceFill();
     } else {
@@ -374,7 +397,7 @@ export function Wordsearch() {
 
   /**to get user selected cells and match against words in list if there is a match remove word */
   function userSelector() {
-    console.log("start");
+    ("start");
     var cellCount = state.gWidth * state.rHeight;
 
     for (let i = 0; i < cellCount; i++) {
@@ -390,8 +413,7 @@ export function Wordsearch() {
     var highlightSelectedCell = [];
 
     let mousedown = false;
-   
-   
+
     //only when mousedown active fire the mouse over event
     cell.addEventListener("mousedown", onmousedown);
 
@@ -423,18 +445,18 @@ export function Wordsearch() {
       }
     };
     onmouseup = function (e) {
-   
-
       mousedown = false;
-   
+
       //join selected letters
       var selectedWord = selected.join("");
-      console.log(selectedWord);
+
       //check selected word against wordlist
       if (state.listOfWords.includes(selectedWord)) {
-       
-        setState((prev) => ({ ...prev, keepHighlight: state.keepHighlight.push(highlightSelectedCell) }));
-        console.log(state.keepHighlight);
+        setState((prev) => ({
+          ...prev,
+          keepHighlight: state.keepHighlight.push(highlightSelectedCell),
+        }));
+
         //if word is in wordlist remove word from wordlist
         state.listOfWords.splice(state.listOfWords.indexOf(selectedWord), 1);
 
@@ -451,16 +473,25 @@ export function Wordsearch() {
         highlightSelectedCell = [];
       } else {
         //if no match
-        //remove background color 
+        //remove background color
         for (let i = 0; i < highlightSelectedCell.length; i++) {
           //if cell is in keephighlight  keep background color
-          setState((prev) => ({ ...prev, keepHighlight: state.keepHighlight.concat() }));
-          console.log(state.keepHighlight)
-          if (  state.keepHighlight.length >0 &&  state.keepHighlight[0].includes(highlightSelectedCell[i]) ) {
+          if (state.keepHighlight.length > 0) {
+            state.keepHighlight = state.keepHighlight.flat(Infinity);
+
+            setState((prev) => ({
+              ...prev,
+              keepHighlight: state.keepHighlight,
+            }));
+          }
+          if (
+            state.keepHighlight.length > 0 &&
+            state.keepHighlight.includes(highlightSelectedCell[i])
+          ) {
             document.getElementById(
               highlightSelectedCell[i]
             ).style.backgroundColor = "aqua";
-              //remove background color from selected cells
+            //remove background color from selected cells
           } else {
             document.getElementById(
               highlightSelectedCell[i]
