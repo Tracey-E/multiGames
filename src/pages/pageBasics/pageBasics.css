@@ -7,14 +7,12 @@
 }
 .name {
   font-family: "Press Start 2P", cursive;
-
   margin-top: 0.5rem;
   font-size: 10rem;
   align-self: center;
 }
 
 .chk {
-
   width: 5rem;
   margin-top: 0rem;
   font-weight: bolder;
@@ -79,12 +77,13 @@
 .nav ul a {
   list-style: none;
   font-size: 1.7rem;
-
   color: rgb(6, 7, 29);
   font-weight: 900;
-
   cursor: pointer;
   text-decoration: underline;
+}
+.nav li:hover {
+  background-color: rgb(240, 50, 50);
 }
 
 .nav .toggle {

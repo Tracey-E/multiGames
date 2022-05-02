@@ -1,0 +1,243 @@
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+.numberGuesser {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  overflow-y: auto;
+  user-select: none;
+  background-color: rgb(177, 166, 166);
+}
+h1 {
+  display: inline-flex;
+  font-size: 3em;
+  color: rgb(202, 25, 25);
+  background-color: #000;
+  padding: 0.5em;
+  margin-top: 3em;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+}
+/* the container for color chart*/
+.colorChart {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5em;
+  width: 20%;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #000;
+  margin-left: 2em;
+  contain: content;
+}
+.red {
+  text-align: center;
+  background-color: red;
+  width: 100%;
+  padding: 0.5em;
+  color: white;
+  font-weight: bolder;
+  font-size: 1.3em;
+}
+
+.blue {
+  text-align: center;
+  background-color: blue;
+  padding: 0.5em;
+  color: white;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+.green {
+  text-align: center;
+  background-color: green;
+  padding: 0.5em;
+  color: white;
+  font-weight: bolder;
+  font-size: 1.5em;
+}
+/* buttons */
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+#starter,
+#reset {
+  width: 5em;
+  height: 3em;
+  align-self: center;
+  margin-left: 10em;
+  font-size: 1.5em;
+  border-radius: 5%;
+  box-shadow: 0px 0px 5px black;
+}
+#starter:hover,
+#reset:hover {
+  background-color: rgb(202, 25, 25);
+  color: white;
+}
+/*reveal number container*/
+#numberReveal {
+  width: 100%;
+  height: 2em;
+  align-self: center;
+  text-align: center;
+  margin: auto;
+  color: #000;
+  font-size: 1.5em;
+  font-weight: Bolder;
+background-color: rgb(209, 144, 144);
+  padding: 0.5em;
+  border: 2px solid black;
+  margin-bottom: 1em;
+}
+/*container for user guesses*/
+#guesses {
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: auto;
+  background-color: #f4f4f8;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #000;
+  margin-top: 5em;
+  contain: content;
+  margin-bottom: 10em;
+}
+.resultBox {
+  display: flex;
+  position: relative;
+  width: 10%;
+  height: 3em;
+  border: 1px solid black;
+  margin-left: 0.2em;
+  margin-top: 0.2em;
+}
+.result1,
+.result2,
+.result3,
+.result4 {
+  display: flex;
+  width: 50%;
+  height: 50%;
+  border: 1px solid black;
+}
+.result1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.result2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.result3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.result4 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.guessBox1,
+.guessBox2,
+.guessBox3,
+.guessBox4,
+.guessBox5,
+.guessBox6 {
+  display: flex;
+  align-self: center;
+  width: 88%;
+  height: 3em;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 2px;
+  box-shadow: 0px 0px 10px rgb(245, 87, 87);
+  margin-bottom: 0.5em;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.box-0,
+.box-1,
+.box-2,
+.box-3 {
+  flex-direction: row;
+  width: 15%;
+  height: 100%;
+  outline: 1px solid black;
+}
+.box-0 input,
+.box-1 input,
+.box-2 input,
+.box-3 input {
+  flex-direction: row;
+  width: 1.2em;
+  height: 50%;
+  text-align: center;
+  font-size: 2em;
+  font-weight: bolder;
+  color: black;
+  margin-top: 0.5em;
+  margin-bottom: 0.9em;
+  border: 2px solid black;
+}
+input[type="number"]:active {
+  border: 2px solid rgb(202, 18, 88);
+}
+/*  user guess buttons*/
+#guessButton1,
+#guessButton2,
+#guessButton3,
+#guessButton4,
+#guessButton5,
+#guessButton6 {
+  width: 5em;
+  height: auto;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 2px;
+  box-shadow: 0px 0px 10px #000;
+  font-size: 2em;
+  font-weight: bold;
+  margin-left: 1em;
+  text-align: center;
+}
+#guessButton1:hover,
+#guessButton2:hover,
+#guessButton3:hover,
+#guessButton4:hover,
+#guessButton5:hover,
+#guessButton6:hover {
+  background-color: rgb(223, 115, 115);
+  color: white;
+}
+
+/*validation box styles for guess input field */
+
+input:invalid + span:after {
+  content: "✖";
+  padding-left: 5px;
+}
+
+input:valid + span:after {
+  content: "✓";
+  padding-left: 5px;
+}

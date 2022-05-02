@@ -11,6 +11,7 @@ import "./games/wordGames/unscramble/unscramble.css";
 import "./pages/wordGamesPage/wordPage.css";
 import "./games/puzzleGames/mouseEscape.css";
 import "./games/wordGames/wordsearch/wordsearch.css";
+import "./games/puzzleGames/numberGuesser/numberGuesser.css";
 
 /**basic page imports */
 import { Header } from "./pages/pageBasics/header/header.js";
@@ -26,6 +27,7 @@ import { WordPage } from "./pages/wordGamesPage/wordPage";
 import { Unscramble } from "./games/wordGames/unscramble/Unscramble";
 import { Wordsearch } from "./games/wordGames/wordsearch/Wordsearch";
 import MouseEscape from "./games/puzzleGames/EscapeBox.js";
+import { NumberGuesser } from "./games/puzzleGames/numberGuesser/numberGuesser";
 
 export default function App() {
   return (
@@ -44,6 +46,7 @@ export default function App() {
           <Route path="/WordPage" exact element={<WordPage />} />
           <Route path="/Unscramble" exact element={<Unscramble />} />
           <Route path="/Wordsearch" exact element={<Wordsearch />} />
+          <Route path="/NumberGuesser" exact element={<NumberGuesser />} />
         </Routes>
       </Suspense>
     </div>

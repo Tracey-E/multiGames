@@ -1,7 +1,18 @@
-.words{
-font-size: 1.5rem;
-
+.words {
+  
+  text-align: center;
 }
-.words a{
-    list-style-type:none;
+.words a {
+  list-style-type: none;
+}
+
+.words li {
+  font-size: 1.5em;
+  background-color: aliceblue;
+  padding: 1em;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.words li:hover {
+  background-color: #ffc107;
 }
