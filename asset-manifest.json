@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/Tracey-E/multiGames/static/css/main.d717c859.css",
-    "main.js": "/Tracey-E/multiGames/static/js/main.b07e419f.js",
-    "static/js/27.a8144bf3.chunk.js": "/Tracey-E/multiGames/static/js/27.a8144bf3.chunk.js",
-    "index.html": "/Tracey-E/multiGames/index.html"
+    "main.css": "/multiGames/static/css/main.d717c859.css",
+    "main.js": "/multiGames/static/js/main.1c189976.js",
+    "static/js/27.a8144bf3.chunk.js": "/multiGames/static/js/27.a8144bf3.chunk.js",
+    "index.html": "/multiGames/index.html"
   },
   "entrypoints": [
     "static/css/main.d717c859.css",
-    "static/js/main.b07e419f.js"
+    "static/js/main.1c189976.js"
   ]
 }
