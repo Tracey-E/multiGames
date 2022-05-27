@@ -1,7 +1,7 @@
 {
   "name": "mygames",
   "version": "0.1.0",
-  "homepage": "https://Tracey-E.github.io",
+  "homepage": "https://Tracey-E.github.io/multigames",
   "private": true,
   "dependencies": {
     "@react-spring/web": "^9.4.2",
@@ -26,7 +26,7 @@
  
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "gh-pages  -d build",
+    "deploy": "gh-pages -b master -d build",
     "start": "  react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
