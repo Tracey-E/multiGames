@@ -24,7 +24,7 @@ import { PuzzlePage } from "./pages/puzzleGamePage/puzzleGamesPage";
 import { WordPage } from "./pages/wordGamesPage/wordPage";
 
 /**game imports */
-import { Unscramble } from "./games/wordGames/unscramble/Unscramble.js";
+import { Unscramble } from "./games/wordGames/unscramble/unscramble.js";
 import { Wordsearch } from "./games/wordGames/wordsearch/Wordsearch";
 import MouseEscape from "./games/puzzleGames/EscapeBox.js";
 import { NumberGuesser } from "./games/puzzleGames/numberGuesser/numberGuesser";
