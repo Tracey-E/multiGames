@@ -33,5 +33,5 @@ tabIndex:focus,
 input:focus,
  button:focus,
  ul:focus{
-  border:  5px solid rgb(255, 0, 21) important!;
+  border:  5px solid rgb(250, 77, 92) important!;
 }
