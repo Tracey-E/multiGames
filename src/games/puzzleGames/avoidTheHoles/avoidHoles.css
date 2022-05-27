@@ -21,7 +21,7 @@
   grid-template-columns: repeat(var(--size), 70px);
   grid-template-rows: repeat(var(--size), 70px);
 
-  background-color: rgb(238, 222, 222);
+  background-color: rgb(233, 219, 219);
   row-gap: 1px;
   column-gap: 1px;
 }
