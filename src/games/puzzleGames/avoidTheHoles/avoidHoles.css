@@ -1,0 +1,51 @@
+.outerHoles {
+  margin: 1%;
+  padding: 1%;
+  width: 90vw;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  background-color: #333332;
+  align-items: center;
+  font-size: 2em;
+  margin-top: 6em;
+  margin-bottom: 6em;
+  justify-content: center;
+  align-items: center;
+}
+.board {
+  display: inline-grid;
+  width: 90%;
+  height: 70vh;
+  grid-template-columns: repeat(var(--size), 70px);
+  grid-template-rows: repeat(var(--size), 70px);
+
+  background-color: rgb(238, 222, 222);
+  row-gap: 1px;
+  column-gap: 1px;
+}
+
+.board > * {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: 2px solid black;
+  user-select: none;
+}
+
+.board > [data-status="hidden"] {
+  background-color: beige;
+}
+.board > [data-status="hole"] {
+  background-color: rgb(231, 25, 25);
+}
+.board > [data-status="number"] {
+  background-color: none;
+}
+.board > [data-status="marked"] {
+  background-color: blue;
+}

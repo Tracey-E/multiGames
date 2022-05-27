@@ -15,6 +15,10 @@ export function PuzzlePage() {
             {""}
             <li>Number Guesser</li>
           </Link>
+          <Link to="/AvoidTheHoles">
+            {""}
+            <li>Avoid The Holes</li>
+          </Link>
         </ul>
       </div>
     </Fragment>
