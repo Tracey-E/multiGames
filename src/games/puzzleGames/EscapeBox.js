@@ -188,7 +188,7 @@ function Exit(props) {
 }*/
 /**export function */
 export default function MouseEscape() {
-  //console.log(Cursor.position);
+ 
   return (
     <div id="MouseEscape">
       <Canvas 
