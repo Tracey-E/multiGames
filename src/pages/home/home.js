@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Dices } from "../../games/reusablecomps/fiberParts/dice";
+//import { Dices } from "../../games/reusablecomps/fiberParts/dice";
 
 
 export function Home() {
@@ -7,7 +7,7 @@ export function Home() {
     <Fragment>
       <div className="home" id="Home">
         <h1>Home</h1>
-        <Dices />
+      
       </div>
     </Fragment>
   );
