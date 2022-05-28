@@ -1,4 +1,4 @@
-import React, { Suspense, Fragment } from "react";
+import React, {  Fragment } from "react";
 // eslint-disable-next-line no-unused-vars
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -35,7 +35,7 @@ export default function App() {
         <Header />
         <Nav />
         <SearchBar />
-        <Suspense fallback={null}>
+      
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/Home" exact element={<Home />} />
@@ -47,7 +47,7 @@ export default function App() {
             <Route path="/Unscramble" exact element={<Unscramble />} />
             <Route path="/Wordsearch" exact element={<Wordsearch />} />
           </Routes>
-        </Suspense>
+    
       </div>
     </Fragment>
   );
