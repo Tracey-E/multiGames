@@ -44,7 +44,7 @@
   background-color: rgb(231, 25, 25);
 }
 .board > [data-status="number"] {
-  background-color: none;
+  background-color: antiquewhite;
 }
 .board > [data-status="marked"] {
   background-color: blue;
