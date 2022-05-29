@@ -146,7 +146,7 @@ export class Unscramble extends React.Component {
   /**refresh the page without loosing page data to start new game */
   NewGame() {
     //window.location.reload();
-    document.location.href = "/";
+    document.location.href = "/tracey-e.github.io/";
 
   }
 
