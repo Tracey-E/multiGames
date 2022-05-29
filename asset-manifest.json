@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.e6c13ad2.css",
-    "main.js": "/static/js/main.ac9235ad.js",
-    "static/css/502.33f6eeee.chunk.css": "/static/css/502.33f6eeee.chunk.css",
-    "static/js/502.eb99163e.chunk.js": "/static/js/502.eb99163e.chunk.js",
-    "static/js/787.2c5541bf.chunk.js": "/static/js/787.2c5541bf.chunk.js",
-    "index.html": "/index.html",
-    "main.e6c13ad2.css.map": "/static/css/main.e6c13ad2.css.map",
-    "main.ac9235ad.js.map": "/static/js/main.ac9235ad.js.map",
-    "502.33f6eeee.chunk.css.map": "/static/css/502.33f6eeee.chunk.css.map",
-    "502.eb99163e.chunk.js.map": "/static/js/502.eb99163e.chunk.js.map",
-    "787.2c5541bf.chunk.js.map": "/static/js/787.2c5541bf.chunk.js.map"
+    "main.css": "/multiGames/static/css/main.e6c13ad2.css",
+    "main.js": "/multiGames/static/js/main.b79eea42.js",
+    "static/css/502.33f6eeee.chunk.css": "/multiGames/static/css/502.33f6eeee.chunk.css",
+    "static/js/502.eb99163e.chunk.js": "/multiGames/static/js/502.eb99163e.chunk.js",
+    "static/js/787.2c5541bf.chunk.js": "/multiGames/static/js/787.2c5541bf.chunk.js",
+    "index.html": "/multiGames/index.html",
+    "main.e6c13ad2.css.map": "/multiGames/static/css/main.e6c13ad2.css.map",
+    "main.b79eea42.js.map": "/multiGames/static/js/main.b79eea42.js.map",
+    "502.33f6eeee.chunk.css.map": "/multiGames/static/css/502.33f6eeee.chunk.css.map",
+    "502.eb99163e.chunk.js.map": "/multiGames/static/js/502.eb99163e.chunk.js.map",
+    "787.2c5541bf.chunk.js.map": "/multiGames/static/js/787.2c5541bf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.ac9235ad.js"
+    "static/js/main.b79eea42.js"
   ]
 }
