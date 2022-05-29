@@ -146,7 +146,7 @@ export class Unscramble extends React.Component {
   /**refresh the page without loosing page data to start new game */
   NewGame() {
     //window.location.reload();
-    window.location.href = "/Unscramble";
+    document.location.href = "/";
 
   }
 
