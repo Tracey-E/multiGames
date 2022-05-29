@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/multiGames/static/css/main.e6c13ad2.css",
-    "main.js": "/multiGames/static/js/main.b79eea42.js",
-    "static/css/502.33f6eeee.chunk.css": "/multiGames/static/css/502.33f6eeee.chunk.css",
-    "static/js/502.eb99163e.chunk.js": "/multiGames/static/js/502.eb99163e.chunk.js",
-    "static/js/787.2c5541bf.chunk.js": "/multiGames/static/js/787.2c5541bf.chunk.js",
-    "index.html": "/multiGames/index.html",
-    "main.e6c13ad2.css.map": "/multiGames/static/css/main.e6c13ad2.css.map",
-    "main.b79eea42.js.map": "/multiGames/static/js/main.b79eea42.js.map",
-    "502.33f6eeee.chunk.css.map": "/multiGames/static/css/502.33f6eeee.chunk.css.map",
-    "502.eb99163e.chunk.js.map": "/multiGames/static/js/502.eb99163e.chunk.js.map",
-    "787.2c5541bf.chunk.js.map": "/multiGames/static/js/787.2c5541bf.chunk.js.map"
+    "main.css": "/multigames/index.html/static/css/main.e6c13ad2.css",
+    "main.js": "/multigames/index.html/static/js/main.b179d06f.js",
+    "static/css/502.33f6eeee.chunk.css": "/multigames/index.html/static/css/502.33f6eeee.chunk.css",
+    "static/js/502.19b4bd1c.chunk.js": "/multigames/index.html/static/js/502.19b4bd1c.chunk.js",
+    "static/js/787.2c5541bf.chunk.js": "/multigames/index.html/static/js/787.2c5541bf.chunk.js",
+    "index.html": "/multigames/index.html/index.html",
+    "main.e6c13ad2.css.map": "/multigames/index.html/static/css/main.e6c13ad2.css.map",
+    "main.b179d06f.js.map": "/multigames/index.html/static/js/main.b179d06f.js.map",
+    "502.33f6eeee.chunk.css.map": "/multigames/index.html/static/css/502.33f6eeee.chunk.css.map",
+    "502.19b4bd1c.chunk.js.map": "/multigames/index.html/static/js/502.19b4bd1c.chunk.js.map",
+    "787.2c5541bf.chunk.js.map": "/multigames/index.html/static/js/787.2c5541bf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.b79eea42.js"
+    "static/js/main.b179d06f.js"
   ]
 }
