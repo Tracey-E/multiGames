@@ -5,6 +5,20 @@
   padding: 0;
   text-align: center;
 }
+.puzzles h1{
+  font-size: 3rem;
+  height:4rem;
+  color: rgb(240, 50, 50);
+  font-weight: 900;
+  text-align: center;
+  margin-top: 0.5rem;
+  justify-content: center;
+    align-content: center;
+    background-color: slategray;
+    text-shadow: 5px 10px black;
+    padding: 0.5em;
+
+}
 #block {
   display: flex;
 }

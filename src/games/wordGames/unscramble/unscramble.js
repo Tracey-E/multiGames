@@ -143,8 +143,11 @@ export class Unscramble extends React.Component {
       .append("The first letter is  " + hintLetter);
     document.getElementById("hint").disabled = "true";
   };
+  /**refresh the page without loosing page data to start new game */
   NewGame() {
-    window.location.reload();
+    //window.location.reload();
+    window.location.href = "/Unscramble";
+
   }
 
   render() {

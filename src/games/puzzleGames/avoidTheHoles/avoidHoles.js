@@ -1,5 +1,5 @@
 /** creating a game like minesweeper */
-import React, { Suspense, Fragment } from "react";
+import React, { Fragment } from "react";
 // export game
 export function CreateGame(boardSize, numberOfHoles) {
   const board = [];

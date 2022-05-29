@@ -60,19 +60,29 @@
 }
 
 /** nav menu styles*/
-.nav {
-  margin-top: 5rem;
+ .nav {
+ 
   position: absolute;
   width: 20rem;
-  height: 100%;
+  height: 90%;
   left: -20rem;
+  margin-top:  23em;
   transition: 0.5s;
   background-color: rgb(218, 229, 243);
+
 }
 
 .nav.active {
+  margin-top:23em ;
   left: 0;
   z-index: 1;
+  position: fixed;
+  transition: 1.5s linear;
+}
+.nav.unActive {
+  position: fixed;
+  transition: left 1.5s linear;
+  left: -20rem;
 }
 .nav ul a {
   list-style: none;
@@ -86,27 +96,23 @@
   background-color: rgb(240, 50, 50);
 }
 
-.nav .toggle {
-  position: absolute;
-  top: 0.5rem;
-  left: 20rem;
+ .nav .toggle {
+  position: fixed;
+  width:6em;
+  top: 20rem;
+  left: 2rem;
   color: black;
   border-radius: 5px;
   cursor: pointer;
+  z-index: 1;
+  
 }
 
-.toggle span {
-  width: 3rem;
-  height: 0.5rem;
-  display: block;
-  margin-top: 0.5rem;
-  background-color: rgb(15, 15, 15);
-  color: black;
-}
+
 /** searchbar styles*/
 .searchbar {
   align-self: center;
-  height: 6rem;
+  height: 4rem;
 }
 .searchbar input {
   height: 3rem;

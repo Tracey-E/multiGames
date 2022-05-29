@@ -1,6 +1,5 @@
-import React, {  Fragment } from "react";
-// eslint-disable-next-line no-unused-vars
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import * as React from "react";
+import { Route, Routes, Outlet } from "react-router-dom";
 
 /**css  imports */
 import "./App.css";
@@ -12,6 +11,7 @@ import "./pages/wordGamesPage/wordPage.css";
 import "./games/wordGames/wordsearch/wordsearch.css";
 import "./games/puzzleGames/numberGuesser/numberGuesser.css";
 import "./games/puzzleGames/avoidTheHoles/avoidHoles.css";
+
 /**basic page imports */
 import { Header } from "./pages/pageBasics/header/header.js";
 import { Nav } from "./pages/pageBasics/nav/nav";
@@ -29,26 +29,27 @@ import { NumberGuesser } from "./games/puzzleGames/numberGuesser/numberGuesser";
 import { AvoidTheHoles } from "./games/puzzleGames/avoidTheHoles/avoidTheHoles";
 
 export default function App() {
+  
   return (
-    <Fragment>
-      <div className="App">
-        <Header />
-        <Nav />
-        <SearchBar />
-      
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/Home" exact element={<Home />} />
+    <>
+    <div className="App">
+      <Nav />
+      <Header />
+      <SearchBar />
+      <main>
+        <Routes>
+          <Route path="Home" index element={<Home />} />
 
-            <Route path="/PuzzlePage" exact element={<PuzzlePage />} />
-            <Route path="/NumberGuesser" exact element={<NumberGuesser />} />
-            <Route path="/AvoidTheHoles" exact element={<AvoidTheHoles />} />
-            <Route path="/WordPage" exact element={<WordPage />} />
-            <Route path="/Unscramble" exact element={<Unscramble />} />
-            <Route path="/Wordsearch" exact element={<Wordsearch />} />
-          </Routes>
-    
-      </div>
-    </Fragment>
+          <Route path="PuzzlePage" exact element={<PuzzlePage />} />
+          <Route path="NumberGuesser" exact element={<NumberGuesser />} />
+          <Route path="AvoidTheHoles" exact element={<AvoidTheHoles />} />
+          <Route path="WordPage" exact element={<WordPage />} />
+          <Route path="Unscramble" exact element={<Unscramble />} />
+          <Route path="Wordsearch" exact element={<Wordsearch />} />
+        </Routes>
+        <Outlet />
+      </main>
+    </div>
+    </>
   );
 }

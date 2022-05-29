@@ -21,17 +21,18 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: rgb(240, 216, 216);
+  color: white;
 }
 
 .App-link {
   color: #61dafb;
-}   
+}
 
-.App:focus,
-tabIndex:focus,   
-input:focus,
- button:focus,
- ul:focus{
-  border:  5px solid rgb(250, 77, 92) important!;
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

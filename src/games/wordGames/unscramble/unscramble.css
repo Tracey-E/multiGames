@@ -5,6 +5,18 @@
   height:auto;
   overflow-y: auto;
 }
+.unscramble h1{
+  font-size: 3rem;
+  color: rgb(240, 50, 50);
+  font-weight: 900;
+  text-align: center;
+  margin-top: 0.5rem;
+  justify-content: center;
+    align-content: center;
+    background-color: slategray;
+    text-shadow: 5px 10px black;
+
+}
 h2 {
   font-size: 1.6rem;
   font-weight: bold;
