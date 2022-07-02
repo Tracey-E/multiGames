@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["animfm", "animic", "animps", "animtf"]
+  "cSpell.words": ["animfm", "animic", "animps", "animtf"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

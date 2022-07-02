@@ -20,10 +20,7 @@ export function NumberGuesser() {
     let number = Math.floor(Math.random() * 9999);
     state.randomNumber = number.toString().split("");
     if (state.randomNumber.length === 4) {
-      setState((prev) => ({
-        ...prev,
-        randomNumber: state.randomNumber,
-      }));
+      
     } else {
       randomNumber();
     }

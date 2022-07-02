@@ -17,7 +17,7 @@
   margin-top: 0rem;
   font-weight: bolder;
 }
-.hidden {
+.hidde {
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
   clip-path: inset(1px);

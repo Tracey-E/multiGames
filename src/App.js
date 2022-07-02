@@ -29,7 +29,7 @@ import { NumberGuesser } from "./games/puzzleGames/numberGuesser/numberGuesser";
 import { AvoidTheHoles } from "./games/puzzleGames/avoidTheHoles/avoidTheHoles";
 
 export default function App() {
-  
+ 
   return (
     <>
     <div className="App">
@@ -38,6 +38,7 @@ export default function App() {
       <SearchBar />
       <main>
         <Routes>
+        <Route path="/"  element={<Home />} />
           <Route path="Home" index element={<Home />} />
 
           <Route path="PuzzlePage" exact element={<PuzzlePage />} />

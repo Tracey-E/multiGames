@@ -12,7 +12,7 @@ export function PuzzlePage() {
             {""}
             <li>Number Guesser</li>
           </Link>
-          <Link to="/AvoidTheHoles">
+          <Link to="/avoidTheHoles">
             {""}
             <li>Avoid The Holes</li>
           </Link>
