@@ -12,6 +12,10 @@ const Tiles_Status = {
 };
 
 export function AvoidTheHoles() {
+  function refreshPage(){ 
+    window.location.reload(); 
+}
+
   let PlayBoard = CreateGame(10, 15);
 
   let cells = [];
@@ -37,10 +41,13 @@ export function AvoidTheHoles() {
       <StrictMode>
         <div className="AvoidTheHoles">
           <h1>Avoid the holes</h1>
+         
+          <p>The object of the game  is to mark all the holes.<br/>
+          You can mark holes with  RIGHT CLICK.<br/>
+          The numbers in the Squares represent how many holes surround that square</p>
           <h3>
             Mines to find <span id="counter">15</span>{" "}
           </h3>
-
           <div className="outerBoard">
             <div
               className="innerBoard"
@@ -66,6 +73,7 @@ export function AvoidTheHoles() {
                 );
               })}
             </div>
+            <button className='newGame' type="button" onClick={ refreshPage }> <span>New Game</span> </button>
           </div>
         </div>
       </StrictMode>

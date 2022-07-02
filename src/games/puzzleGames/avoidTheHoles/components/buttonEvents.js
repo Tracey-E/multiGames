@@ -16,7 +16,7 @@ if(number > 0){
   let cell = e.nativeEvent.which;
 
   if (cell === 1) {
-    e.target.disabled = true;
+   
     Reveal(e);
   } else if (cell === 3) {
     RightClickReveal(e);

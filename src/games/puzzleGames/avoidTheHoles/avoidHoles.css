@@ -70,3 +70,12 @@
   background-color: blue;
 }
 
+.newGame{
+  width:10%;
+  height:6%;
+  margin:1em;
+  border: 3px solid black;
+  font-size: 1em;
+  font-weight: bolder;
+}
+
