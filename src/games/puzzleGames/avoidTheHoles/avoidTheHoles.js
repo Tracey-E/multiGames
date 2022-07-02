@@ -1,7 +1,5 @@
 import React, { Fragment, StrictMode } from "react";
 import { CreateGame } from "./components/avoidHoles.js";
-import { Reveal } from "./components/avoidHoles.js";
-import { MineCounter } from "./components/avoidHoles.js";
 import { handleClicks } from "./components/buttonEvents.js";
 
 const Tiles_Status = {
