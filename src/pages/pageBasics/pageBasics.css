@@ -63,8 +63,8 @@
  .nav {
  
   position: absolute;
-  width: 20rem;
-  height: 90%;
+  width: 15rem;
+  height: 100%;
   left: -20rem;
   margin-top:  23em;
   transition: 0.5s;
@@ -73,20 +73,22 @@
 }
 
 .nav.active {
-  margin-top:23em ;
+  margin-top:auto ;
   left: 0;
   z-index: 1;
   position: fixed;
   transition: 1.5s linear;
+  padding-top: 3rem;
 }
 .nav.unActive {
   position: fixed;
   transition: left 1.5s linear;
   left: -20rem;
+  margin-top:auto ;
 }
 .nav ul a {
   list-style: none;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   color: rgb(6, 7, 29);
   font-weight: 900;
   cursor: pointer;
@@ -95,12 +97,16 @@
 .nav li:hover {
   background-color: rgb(240, 50, 50);
 }
+.nav li{
+  font-size: 1.5rem;
+  padding: 1rem;
+}
 
  .nav .toggle {
   position: fixed;
   width:6em;
   top: 20rem;
-  left: 2rem;
+  left: 12rem;
   color: black;
   border-radius: 5px;
   cursor: pointer;

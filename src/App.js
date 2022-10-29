@@ -21,12 +21,13 @@ import { SearchBar } from "./pages/pageBasics/searchBar.js";
 import { Home } from "./pages/home/home";
 import { PuzzlePage } from "./pages/puzzleGamePage/puzzleGamesPage";
 import { WordPage } from "./pages/wordGamesPage/wordPage";
-
+import { BoardPage } from "./pages/boardGames/boardGamesHomes";
 /**game imports */
 import { Unscramble } from "./games/wordGames/unscramble/unscramble.js";
 import { Wordsearch } from "./games/wordGames/wordsearch/Wordsearch";
 import { NumberGuesser } from "./games/puzzleGames/numberGuesser/numberGuesser";
 import { AvoidTheHoles } from "./games/puzzleGames/avoidTheHoles/avoidTheHoles";
+import { Ludo } from "./games/boardGames/ludo/ludo";
 
 export default function App() {
  
@@ -44,9 +45,13 @@ export default function App() {
           <Route path="PuzzlePage" exact element={<PuzzlePage />} />
           <Route path="NumberGuesser" exact element={<NumberGuesser />} />
           <Route path="AvoidTheHoles" exact element={<AvoidTheHoles />} />
+         
           <Route path="WordPage" exact element={<WordPage />} />
           <Route path="Unscramble" exact element={<Unscramble />} />
           <Route path="Wordsearch" exact element={<Wordsearch />} />
+      
+           <Route path="BoardPage" exact element={<BoardPage/>} />
+           <Route path='Ludo' exact element={<Ludo/>}/>
         </Routes>
         <Outlet />
       </main>

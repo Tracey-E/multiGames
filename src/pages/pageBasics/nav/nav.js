@@ -18,8 +18,8 @@ export function Nav() {
 
   const close = () => {
     document.getElementById("nav").classList.remove("active");
-    
-      document.getElementById("nav").classList.toggle("unActive")
+
+    document.getElementById("nav").classList.toggle("unActive");
     let butt = document.getElementById("toggle");
 
     butt.children[0].innerHTML = "Open Menu";
@@ -38,10 +38,13 @@ export function Nav() {
           <p>Open Menu</p>
         </button>
         <ul tabIndex={-0} type="menu">
+          <Link to="./BoardPage" onClick={close}>
+            {" "}
+            <li>Board games </li>
+          </Link>
           <Link to="./Home" onClick={close}>
             <li>Home </li>
           </Link>
-
           <Link to="./PuzzlePage" onClick={close}>
             {" "}
             <li>Puzzle games </li>
@@ -52,7 +55,6 @@ export function Nav() {
             <li>Word games </li>
           </Link>
         </ul>
-       
       </div>
     </Fragment>
   );

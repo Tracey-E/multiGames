@@ -1,0 +1,432 @@
+
+/** ludo main styling*/
+.ludo {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 115vh;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  margin: auto;
+}
+
+.boardArea {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  height: 90%;
+  border: 2px solid black;
+  margin-top: 2rem;
+  background-color: rgb(51, 50, 50);
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  z-index: 0;
+}
+
+.OuterBoard {
+  display: grid;
+
+  grid-template-columns: repeat(12, 3em);
+  grid-template-rows: repeat(12, 3em);
+  border: 5px solid rgb(245, 240, 240);
+  row-gap: 0.2rem;
+  column-gap: 0.2rem;
+
+  background-color: azure;
+
+  
+}
+.OuterBoard div {
+  display: flex;
+  border: 2px solid black;
+ 
+}
+/** end of main styling*/
+
+/** home Routes */
+.home1 {
+  grid-area: 1/1/5/5;
+  background-color: rgb(231, 185, 68);
+}
+
+.home1Path1 {
+  grid-area: 6/2/8/3;
+  background-color: rgb(231, 185, 68);
+
+}
+.home1Path2 {
+  grid-area: 6/3/8/4;
+  background-color: rgb(231, 185, 68);
+  
+}
+.home1Path3 {
+  grid-area: 6/4/8/5;
+  background-color: rgb(231, 185, 68);
+ 
+}
+.home1Path4 {
+  grid-area: 6/5/8/6;
+  background-color: rgb(231, 185, 68);
+}
+
+.home2 {
+  grid-area: 1/9/5/13;
+  background-color: rgb(235, 57, 26);
+}
+.home2Path1 {
+  grid-area: 2/6/3/8;
+  background-color: rgb(235, 57, 26);
+}
+.home2Path2 {
+  grid-area: 3/6/4/8;
+  background-color: rgb(235, 57, 26);
+}
+.home2Path3 {
+  grid-area: 4/6/5/8;
+  background-color: rgb(235, 57, 26);
+}
+.home2Path4 {
+  grid-area: 5/6/6/8;
+  background-color: rgb(235, 57, 26);
+}
+.home3 {
+  grid-area: 9/1/13/5;
+  background-color: rgb(80, 158, 231);
+}
+.home3Path1 {
+  grid-area: 11/6/12/8;
+  background-color: rgb(80, 158, 231);
+}
+.home3Path2 {
+  grid-area: 10/6/11/8;
+  background-color: rgb(80, 158, 231);
+}
+.home3Path3 {
+  grid-area: 9/6/10/8;
+  background-color: rgb(80, 158, 231);
+}
+.home3Path4 {
+  grid-area: 8/6/9/8;
+  background-color: rgb(80, 158, 231);
+}
+
+.home4 {
+  grid-area: 9/9/13/13;
+  background-color: rgb(27, 214, 73);
+}
+.home4Path1 {
+  grid-area: 6/11/8/12;
+  background-color: rgb(27, 214, 73);
+}
+.home4Path2 {
+  grid-area: 6/10/8/11;
+  background-color: rgb(27, 214, 73);
+}
+.home4Path3 {
+  grid-area: 6/9/8/10;
+  background-color: rgb(27, 214, 73);
+}
+.home4Path4 {
+  grid-area: 6/8/8/9;
+  background-color: rgb(27, 214, 73);
+}
+
+.centerHome {
+  display: flex;
+  grid-area: 6/6/8/8;
+  background-color: rgb(223, 233, 213);
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+  font-size: 2rem;
+}
+/**end of home routes */
+
+/** board route */
+
+.one {
+  grid-area: 1/5/2/6;
+  background-color: darkgrey;
+}
+.two {
+  grid-area: 1/6/2/7;
+  background-color: rgb(235, 57, 26);
+}
+.three {
+  grid-area: 1/7/2/8;
+  background-color: rgb(235, 57, 26);
+}
+.four {
+  grid-area: 1/8/2/9;
+  background-color: darkgrey;
+}
+.five {
+  grid-area: 2/8/3/9;
+  background-color: darkgrey;
+}
+.six {
+  grid-area: 3/8/4/9;
+  background-color: darkgrey;
+}
+.seven {
+  grid-area: 4/8/5/9;
+  background-color: darkgrey;
+}
+.eight {
+  grid-area: 5/8/6/9;
+  background-color: darkgrey;
+}
+.nine {
+  grid-area: 5/9/6/10;
+  background-color: darkgrey;
+}
+.ten {
+  grid-area: 5/10/6/11;
+  background-color: darkgrey;
+}
+.eleven {
+  grid-area: 5/11/6/12;
+  background-color: darkgrey;
+}
+.twelve {
+  grid-area: 5/12/6/13;
+  background-color: darkgrey;
+}
+.thirteen {
+  grid-area: 6/12/7/13;
+  background-color: rgb(27, 214, 73);
+}
+.fourteen {
+  grid-area: 7/12/8/13;
+  background-color: rgb(27, 214, 73);
+}
+.fifthteen {
+  grid-area: 8/12/9/13;
+  background-color: darkgrey;
+}
+.sixteen {
+  grid-area: 8/11/9/12;
+  background-color: darkgrey;
+}
+.seventeen {
+  grid-area: 8/10/9/11;
+  background-color: darkgrey;
+}
+
+.eighteen {
+  grid-area: 8/9/9/10;
+  background-color: darkgrey;
+}
+.nineteen {
+  grid-area: 8/8/9/9;
+  background-color: darkgrey;
+}
+.twenty {
+  grid-area: 9/8/10/9;
+  background-color: darkgrey;
+}
+.twentyone {
+  grid-area: 10/8/11/9;
+  background-color: darkgrey;
+}
+.twentytwo {
+  grid-area: 11/8/12/9;
+  background-color: darkgrey;
+}
+.twentythree {
+  grid-area: 12/8/13/9;
+  background-color: darkgrey;
+}
+.twentyfour {
+  grid-area: 12/7/13/8;
+  background-color: rgb(80, 158, 231);
+}
+.twentyfive {
+  grid-area: 12/6/13/7;
+  background-color: rgb(80, 158, 231);
+}
+.twentysix {
+  grid-area: 12/5/13/6;
+  background-color: darkgrey;
+}
+.twentyseven {
+  grid-area: 11/5/12/6;
+  background-color: darkgrey;
+}
+.twentyeight {
+  grid-area: 10/5/11/6;
+  background-color: darkgrey;
+}
+.twentynine {
+  grid-area: 9/5/10/6;
+  background-color: darkgrey;
+}
+.thirty {
+  grid-area: 8/5/9/6;
+  background-color: darkgrey;
+}
+.thirtyone {
+  grid-area: 8/4/9/5;
+  background-color: darkgrey;
+}
+.thirtytwo {
+  grid-area: 8/3/9/4;
+  background-color: darkgrey;
+}
+.thirtythree {
+  grid-area: 8/2/9/3;
+  background-color: darkgrey;
+}
+.thirtyfour {
+  grid-area: 8/1/9/2;
+  background-color: darkgrey;
+}
+.thirtyfive {
+  grid-area: 7/1/8/2;
+  background-color: rgb(231, 185, 68);
+}
+.thirtysix {
+  grid-area: 6/1/7/2;
+  background-color: rgb(231, 185, 68);
+}
+.thirtyseven {
+  grid-area: 5/1/6/2;
+  background-color: darkgrey;
+}
+.thirtyeight {
+  grid-area: 5/2/6/3;
+  background-color: darkgrey;
+}
+.thirtynine {
+  grid-area: 5/3/6/4;
+  background-color: darkgrey;
+}
+.forty {
+  grid-area: 5/4/6/5;
+  background-color: darkgrey;
+}
+.fortyone {
+  grid-area: 5/5/6/6;
+  background-color: darkgrey;
+}
+.fortytwo {
+  grid-area: 4/5/5/6;
+  background-color: darkgrey;
+}
+.fortythree {
+  grid-area: 3/5/4/6;
+  background-color: darkgrey;
+}
+.fortyfour {
+  grid-area: 2/5/3/6;
+  background-color: darkgrey;
+}
+/** end of board routes*/
+/** counters styling*/
+
+.yellow1, .yellow2,.yellow3, .yellow4 {
+  background-color: rgb(185, 174, 67);
+  border: 5px solid rgb(228, 217, 217)  ;
+  border-radius: 50%;
+  width: 2rem;
+  height:2rem;
+  box-shadow: -1px 1px 3px 5px rgb(22, 21, 21);
+  align-self: center;
+  justify-self: center;
+  
+}
+
+.red1, .red2,.red3, .red4 {
+  background-color: rgb(160, 13, 13);
+  border: 5px solid rgb(228, 217, 217)  ;
+  border-radius: 50%;
+  width: 2rem;
+  height:2rem;
+  box-shadow: -1px 1px 3px 5px rgb(22, 21, 21);
+  align-self: center;
+  justify-self: center;
+  
+}
+.blue1, .blue2,.blue3, .blue4 {
+  background-color: rgb(22, 7, 110);
+  border: 5px solid rgb(228, 217, 217)  ;
+  border-radius: 50%;
+  width: 2rem;
+  height:2rem;
+  box-shadow: -1px 1px 3px 5px rgb(22, 21, 21);
+  align-self: center;
+  justify-self: center;
+  
+}
+.green1, .green2,.green3, .green4 {
+  background-color: rgb(17, 97, 10);
+  border: 5px solid rgb(228, 217, 217)  ;
+  border-radius: 50%;
+  width: 2rem;
+  height:2rem;
+  box-shadow: -1px 1px 3px 5px rgb(22, 21, 21);
+  align-self: center;
+  justify-self: center;
+  
+}
+/** end counter styling*/
+
+/** counter start position*/
+.yellow1{
+  grid-area: 2/2/3/3;
+}
+.yellow2{
+  grid-area: 2/3/3/4;
+}
+.yellow3{
+  grid-area: 3/2/4/3;
+}
+.yellow4{
+  grid-area: 3/3/4/4;
+}
+
+.red1{
+  grid-area: 2/10/3/11;
+}
+.red2{
+  grid-area: 2/11/3/12;
+}
+.red3{
+  grid-area: 3/10/4/11;
+}
+.red4{
+  grid-area: 3/11/4/12;
+}
+
+.blue1{
+  grid-area: 10/2/11/3;
+}
+.blue2{
+  grid-area: 10/3/11/4;
+}
+.blue3{
+  grid-area: 11/2/12/3;
+}
+.blue4{
+  grid-area: 11/3/12/4;
+}
+
+.green1{
+  grid-area: 10/10/11/11;
+}
+.green2{
+  grid-area: 10/11/11/12;
+}
+.green3{
+  grid-area: 11/10/12/11;
+}
+.green4{
+  grid-area: 11/11/12/12;
+}
+
+
+
+/** end counter start position*/

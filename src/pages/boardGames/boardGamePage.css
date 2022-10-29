@@ -1,0 +1,35 @@
+.board {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  .board h1{
+    font-size: 3rem;
+    height:4rem;
+    color: rgb(240, 50, 50);
+    font-weight: 900;
+    text-align: center;
+    margin-top: 0.5rem;
+    justify-content: center;
+      align-content: center;
+      background-color: slategray;
+      text-shadow: 3px 5px black;
+      padding: 0.5em;
+  
+  }
+  #block {
+    display: flex;
+  }
+  
+  .board li {
+    font-size: 1.5em;
+    background-color: aliceblue;
+    padding: 1em;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .board li:hover {
+    background-color: #ffc107;
+  }
